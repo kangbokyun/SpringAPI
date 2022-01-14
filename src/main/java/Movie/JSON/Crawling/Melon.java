@@ -1,21 +1,14 @@
 package Movie.JSON.Crawling;
 
-import com.fasterxml.jackson.core.JsonEncoding;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class Melon {
@@ -26,26 +19,32 @@ public class Melon {
                         JsonObject melonDataOBJ = new JsonObject();
                         JsonArray songInfo = new JsonArray();
 
+                        // 인터넷 코드와 연결
                         Document document1 = Jsoup.connect("https://www.melon.com/new/index.htm").get();
-                        Elements melon_song = document1.getElementsByTag("tbody");
-                        Elements file = melon_song.select("a");
+                        // 클래스 명으로 큰 틀 지정
+//                        Elements melon_song = document1.getElementsByClass("wrap_song_info");
+//			// 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+//                        Elements file = melon_song.select("div>div>span>a");
 
-                        String url="https://www.melon.com/chart/index.htm";
+                        // 노래 제목 뽑기
+                        Elements melon_song = document1.getElementsByClass("ellipsis rank01"); // 클래스 명으로 큰 틀 지정
+                        Elements songTitle = melon_song.select("span>a"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+                        // 가수 뽑기
+                        Elements melon_singer = document1.getElementsByClass("ellipsis rank02"); // 클래스 명으로 큰 틀 지정
+                        Elements singerName = melon_singer.select("span"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
 
-                        //크롤링하고싶은 대상 url 을 적는다
-
-                        Document doc=Jsoup.connect(url).get();
-
-                        Elements titles=doc.select("div.ellipsis>span>a");
-                        //하단의 그림참조하여 적는다
-                        for(Element e : titles) {
-                                String song=e.text();
-                                System.out.println("제목:"+song);
+                        ArrayList<String> songAndSinger = new ArrayList<>();
+                        String[] songArray = new String[melon_song.size()];
+                        String[] singerArray = new String[melon_song.size()];
+                        for(int i = 0; i < melon_song.size(); i++) {
+                                songArray[i] = songTitle.get(i).text().split("\n")[0];
+                                singerArray[i] = singerName.get(i).text().split("\n")[0];
+//				System.out.println(songArray[i]);
+//				System.out.println(songArray[i]);
                         }
 
-                        System.out.println("============");
-
-                        // System.out.println(file);
+                        System.out.println(singerName.text().split(",")[0]);
+//			System.out.println(singerName);
                 } catch(Exception e) {
                         System.out.println(e.getMessage());
                 }
