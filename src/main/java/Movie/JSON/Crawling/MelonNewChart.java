@@ -4,19 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 
 @SpringBootApplication
-public class Melon {
+public class MelonNewChart {
         public static void main(String[] args) {
-                SpringApplication.run(Melon.class, args);
+                SpringApplication.run(MelonNewChart.class, args);
 
                 try {
                         JsonObject melonDataOBJ = new JsonObject();
@@ -32,19 +29,29 @@ public class Melon {
 			// 노래 제목 뽑기
                         Elements melon_song = document1.getElementsByClass("ellipsis rank01"); // 클래스 명으로 큰 틀 지정
                         Elements songTitle = melon_song.select("span>a"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+			// 가수명 뽑기
 			Elements melon_singer = document1.getElementsByClass("ellipsis rank02"); // 클래스 명으로 큰 틀 지정
                         Elements singerName = melon_singer.select("span"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+			// 앨범컷 뽑기
+			Elements song_img = document1.getElementsByClass("image_typeAll"); // 클래스 명으로 큰 틀 지정
+                        Elements imgName = song_img.select("img"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+			// 좋아요 뽑기
+			Elements songLike = document1.getElementsByClass("cnt");
 
-			ArrayList<String> songAndSinger = new ArrayList<>();
-			String[] songArray = new String[melon_song.size()];
-			String[] singerArray = new String[melon_song.size()];
+			System.out.println(songLike);
+
+			ArrayList<String> songAndSinger = new ArrayList<>(); // 곡명과 가수명을 합칠 리스트
+			String[] songArray = new String[melon_song.size()]; // 곡명
+			String[] singerArray = new String[melon_song.size()]; // 가수명
+			String[] songIMGArray = new String[melon_song.size()];
 			for(int i = 0; i < melon_song.size(); i++) {
 				songArray[i] = songTitle.get(i).text().split("\n")[0];
 				singerArray[i] = singerName.get(i).text().split("\n")[0];
-//				System.out.println(songArray[i]);
+				// attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
+				songIMGArray[i] = imgName.get(i).attr("abs:src");
+//				System.out.println(songArray[i] + " : " + singerArray[i] + " / " + songIMGArray[i]);
 			}
 
-			System.out.println(singerName.text().split(",")[0]);
 //			System.out.println(singerName);
                 } catch(Exception e) {
                         System.out.println(e.getMessage());
