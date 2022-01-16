@@ -1,4 +1,4 @@
-package Movie.JSON.Crawling;
+package Melon.JSON.Crawling;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.google.gson.JsonArray;

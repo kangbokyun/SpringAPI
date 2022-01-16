@@ -1,4 +1,4 @@
-package Movie.JSON.Crawling;
+package Melon.JSON.Crawling;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -10,11 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 
-@SpringBootApplication
 public class MelonNewChart {
         public static void main(String[] args) {
-                SpringApplication.run(MelonNewChart.class, args);
-
                 try {
                         JsonObject melonDataOBJ = new JsonObject();
                         JsonArray songInfo = new JsonArray();
@@ -38,7 +35,7 @@ public class MelonNewChart {
 			// 좋아요 뽑기
 			Elements songLike = document1.getElementsByClass("cnt");
 
-			System.out.println(songLike);
+//			System.out.println(songLike.text());
 
 			ArrayList<String> songAndSinger = new ArrayList<>(); // 곡명과 가수명을 합칠 리스트
 			String[] songArray = new String[melon_song.size()]; // 곡명
@@ -49,7 +46,7 @@ public class MelonNewChart {
 				singerArray[i] = singerName.get(i).text().split("\n")[0];
 				// attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
 				songIMGArray[i] = imgName.get(i).attr("abs:src");
-//				System.out.println(songArray[i] + " : " + singerArray[i] + " / " + songIMGArray[i]);
+				System.out.println(songArray[i] + " : " + singerArray[i] + " / " + songIMGArray[i]);
 			}
 
 //			System.out.println(singerName);
