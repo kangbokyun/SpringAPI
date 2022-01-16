@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,9 @@ import java.util.List;
 public class NewSongService {
 	@Autowired
 	NewSongRepository newSongRepository;
+
+	@Autowired
+	HttpSession session;
 
 	// 최신곡 가져오기
 	public ArrayList<NewSongDTO> getNewSong() {
@@ -64,6 +68,9 @@ public class NewSongService {
 			String[] songIMGArray = new String[melon_song.size()];
 
 			NewSongDTO newSongDTO = new NewSongDTO();
+
+//			ArrayList<NewSongDTO> newSong = (ArrayList<NewSongDTO>) session.getAttribute("newSong");
+//			System.out.println(newSong.get(1).getS_title());
 
 			for(int i = 0; i < melon_song.size(); i++) {
 				songArray[i] = songTitle.get(i).text().split("\n")[0];

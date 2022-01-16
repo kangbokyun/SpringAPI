@@ -8,12 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
 public class NewSongController {
 	@Autowired
 	NewSongService newSongService;
+	@Autowired
+	HttpSession session;
 
 	@GetMapping("/")
 	public String goToMain() {
@@ -22,8 +25,11 @@ public class NewSongController {
 
 	@GetMapping("NewSong/NewSongList")
 	public String goToNewSong(ArrayList<NewSongDTO> newSongDTO, Model model) {
-		newSongDTO = newSongService.getNewSong();
-		model.addAttribute("newSongDTO", newSongDTO);
+		if(newSongDTO != null) {
+			newSongDTO = newSongService.getNewSong();
+			session.setAttribute("newSong", newSongDTO);
+			model.addAttribute("newSongDTO", newSongDTO);
+		}
 
 		return "Melon/NewSong/NewSongList";
 	}
