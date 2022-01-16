@@ -1,6 +1,7 @@
 package Melon.Service;
 
 import Melon.Domain.DTO.NewSongDTO;
+import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,12 +12,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NewSongService {
 	@Autowired
 	NewSongRepository newSongRepository;
-	public String NewSongSave() {
+
+	// 최신곡 가져오기
+	public ArrayList<NewSongDTO> getNewSong() {
+		List<NewSongEntity> newSongEntityList = newSongRepository.findAll();
+		ArrayList<NewSongDTO> addArray = new ArrayList<>();
+		NewSongDTO newSongDTO = null;
+		for(NewSongEntity newSongEntity : newSongEntityList) {
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getS_title(), newSongEntity.getS_singer(), newSongEntity.getS_img());
+			addArray.add(newSongDTO);
+		}
+		return addArray;
+	}
+
+	// 최신곡 업데이트
+	public boolean NewSongSave() {
 		try {
 			JsonObject melonDataOBJ = new JsonObject();
 			JsonArray songInfo = new JsonArray();
@@ -54,19 +70,17 @@ public class NewSongService {
 				singerArray[i] = singerName.get(i).text().split("\n")[0];
 				// attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
 				songIMGArray[i] = imgName.get(i).attr("abs:src");
+
 				newSongDTO.setS_title(songArray[i]);
 				newSongDTO.setS_singer(singerArray[i]);
 				newSongDTO.setS_img(songIMGArray[i]);
+				newSongRepository.save(newSongDTO.newSongEntity());
 			}
-			newSongRepository.save(newSongDTO.newSongEntity());
+			return true;
 
-			System.out.println(newSongDTO.getS_title() + ", " + newSongDTO.getS_singer() + ", " + newSongDTO.getS_img());
-
-//			System.out.println(singerName);
-			return "";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
-			return "";
+			return false;
 		}
 	}
 }
