@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+</head>
+<body>
+        <div th:replace = "Melon/Header.html :: header"></div>
+        <script th:src = "@{/JS/NewSongJS.js}"></script>
+        <div class = "container">
+                <div class = "row">
+                        <div class = "">
+                                <button onclick = "newSongUpdate()" class = "btn btn-outline-success">곡 업데이트</button>
+                        </div>
+                        <table class = "table">
+                                <tr>
+                                        <td class = "col-md-2 text-center">번호</td>
+                                        <td class = "col-md-2 text-center">제목</td>
+                                        <td class = "col-md-2 text-center">가수</td>
+                                        <td class = "col-md-2 text-center">앨범컷</td>
+                                        <td class = "col-md-2 text-center">앨범명</td>
+                                        <td class = "col-md-2 text-center">등록일</td>
+                                </tr>
+                                <tr th:each = "newSongDTO : ${newSongDTO}">
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.ns_no}"></td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_title}">제목</td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_singer}">가수</td>
+                                        <td class = "col-md-2 text-center"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
+                                        <td class = "col-md-2 text-center">gd</td>
+                                        <td class = "col-md-2 text-center">today</td>
+                                </tr>
+                        </table>
+                </div>
+        </div>
+</body>
+</html>
