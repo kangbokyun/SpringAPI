@@ -69,21 +69,31 @@ public class NewSongService {
 
 			NewSongDTO newSongDTO = new NewSongDTO();
 
-//			ArrayList<NewSongDTO> newSong = (ArrayList<NewSongDTO>) session.getAttribute("newSong");
-//			System.out.println(newSong.get(1).getS_title());
+                        ArrayList<NewSongDTO> newSongList = getNewSong();
 
-			for(int i = 0; i < melon_song.size(); i++) {
-				songArray[i] = songTitle.get(i).text().split("\n")[0];
-				singerArray[i] = singerName.get(i).text().split("\n")[0];
-				// attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
-				songIMGArray[i] = imgName.get(i).attr("abs:src");
+                        List<NewSongEntity> result = newSongRepository.findAll();
+                        for(int i = 0; i < melon_song.size(); i++) {
+                                songArray[i] = songTitle.get(i).text().split("\n")[0];
+                                singerArray[i] = singerName.get(i).text().split("\n")[0];
+                                // attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
+                                songIMGArray[i] = imgName.get(i).attr("abs:src");
 
-				newSongDTO.setS_title(songArray[i]);
-				newSongDTO.setS_singer(singerArray[i]);
-				newSongDTO.setS_img(songIMGArray[i]);
-				newSongRepository.save(newSongDTO.newSongEntity());
-			}
-			return true;
+
+                                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa : " + result.size());
+                                if (result.size() == 0) {
+                                        newSongDTO.setS_title(songArray[i]);
+                                        newSongDTO.setS_singer(singerArray[i]);
+                                        newSongDTO.setS_img(songIMGArray[i]);
+                                        newSongRepository.save(newSongDTO.newSongEntity());
+                                } else if (result.size() != 0) {
+                                        for (int j = 0; j < result.size(); j++) {
+                                                if(!result.get(i).getS_title().equals(songArray[j])) {
+
+                                                }
+                                        }
+                                }
+                        }
+                        return true;
 
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
