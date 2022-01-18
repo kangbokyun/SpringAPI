@@ -16,7 +16,7 @@ public class NewSongDTO {
 		return NewSongEntity.builder()
 			.ns_no(this.ns_no)
 			.s_no(this.s_no)
-			.s_title(this.s_title)
+			.stitle(this.s_title)
 			.s_singer(this.s_singer)
 			.s_img(this.s_img)
 			.build();

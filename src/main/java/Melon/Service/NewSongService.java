@@ -29,7 +29,7 @@ public class NewSongService {
 		ArrayList<NewSongDTO> addArray = new ArrayList<>();
 		NewSongDTO newSongDTO = null;
 		for(NewSongEntity newSongEntity : newSongEntityList) {
-			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getS_title(), newSongEntity.getS_singer(), newSongEntity.getS_img());
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img());
 			addArray.add(newSongDTO);
 		}
 		return addArray;
@@ -73,30 +73,11 @@ public class NewSongService {
 
                         List<NewSongEntity> result = newSongRepository.findAll();
 
-                        for( String song : songArray){
-
-                                NewSongEntity bys_title = newSongRepository.findBys_title(song);
-
-                                if (bys_title == null) {
-                                        // 값이 없으면 저장
-                                }else{
-                                        // 있으면 아무것도 안함
-                                }
-
-                        }
-                        
-                        
-                        
-                        
-                        
-                        
                         for(int i = 0; i < melon_song.size(); i++) {
                                 songArray[i] = songTitle.get(i).text().split("\n")[0];
                                 singerArray[i] = singerName.get(i).text().split("\n")[0];
                                 // attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
                                 songIMGArray[i] = imgName.get(i).attr("abs:src");
-
-
                                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa : " + result.size());
                                 if (result.size() == 0) {
                                         newSongDTO.setS_title(songArray[i]);
@@ -104,15 +85,14 @@ public class NewSongService {
                                         newSongDTO.setS_img(songIMGArray[i]);
                                         newSongRepository.save(newSongDTO.newSongEntity());
                                 } else if (result.size() != 0) {
-                                        for (int j = 0; j < result.size(); j++) {
-                                                if(!result.get(i).getS_title().equals(songArray[j])) {
-                                                        System.out.println("안같음 : " + result.get(i).getS_title());
-                                                        System.out.println("안같음 : " + songArray[j]);
-                                                } else {
-                                                        System.out.println("같음 : " + result.get(i).getS_title());
-                                                        System.out.println("같음 : " + songArray[j]);
-                                                }
-                                        }
+					for( String song : songArray){
+						NewSongEntity bys_title = newSongRepository.findBystitle(song);
+						if (bys_title == null) {
+							System.out.println("중복되지 않는 곡 : " + bys_title.getStitle());
+						}else{
+							System.out.println("중복되는 곡 : " + bys_title.getStitle());
+						}
+					}
                                 }
                         }
                         return true;

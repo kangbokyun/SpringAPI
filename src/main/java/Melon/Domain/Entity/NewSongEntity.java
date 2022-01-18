@@ -14,7 +14,7 @@ public class NewSongEntity {
 	@Column
 	private int s_no;
 	@Column
-	private String s_title;
+	private String stitle;
 	@Column
 	private String s_singer;
 	@Column
