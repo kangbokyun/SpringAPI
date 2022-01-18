@@ -72,6 +72,24 @@ public class NewSongService {
                         ArrayList<NewSongDTO> newSongList = getNewSong();
 
                         List<NewSongEntity> result = newSongRepository.findAll();
+
+                        for( String song : songArray){
+
+                                NewSongEntity bys_title = newSongRepository.findBys_title(song);
+
+                                if (bys_title == null) {
+                                        // 값이 없으면 저장
+                                }else{
+                                        // 있으면 아무것도 안함
+                                }
+
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
                         for(int i = 0; i < melon_song.size(); i++) {
                                 songArray[i] = songTitle.get(i).text().split("\n")[0];
                                 singerArray[i] = singerName.get(i).text().split("\n")[0];
@@ -88,7 +106,11 @@ public class NewSongService {
                                 } else if (result.size() != 0) {
                                         for (int j = 0; j < result.size(); j++) {
                                                 if(!result.get(i).getS_title().equals(songArray[j])) {
-
+                                                        System.out.println("안같음 : " + result.get(i).getS_title());
+                                                        System.out.println("안같음 : " + songArray[j]);
+                                                } else {
+                                                        System.out.println("같음 : " + result.get(i).getS_title());
+                                                        System.out.println("같음 : " + songArray[j]);
                                                 }
                                         }
                                 }
