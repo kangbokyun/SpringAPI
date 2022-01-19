@@ -69,7 +69,7 @@ public class NewSongService {
 
 			NewSongDTO newSongDTO = new NewSongDTO();
 
-                        ArrayList<NewSongDTO> newSongList = getNewSong();
+                        ArrayList<String> newSongList = new ArrayList<>();
 
                         List<NewSongEntity> result = newSongRepository.findAll();
 
@@ -78,21 +78,25 @@ public class NewSongService {
                                 singerArray[i] = singerName.get(i).text().split("\n")[0];
                                 // attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
                                 songIMGArray[i] = imgName.get(i).attr("abs:src");
-                                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa : " + result.size());
                                 if (result.size() == 0) {
                                         newSongDTO.setS_title(songArray[i]);
                                         newSongDTO.setS_singer(singerArray[i]);
                                         newSongDTO.setS_img(songIMGArray[i]);
                                         newSongRepository.save(newSongDTO.newSongEntity());
                                 } else if (result.size() != 0) {
-					for( String song : songArray){
-						NewSongEntity bys_title = newSongRepository.findBystitle(song);
-						if (bys_title == null) {
-							System.out.println("중복되지 않는 곡 : " + bys_title.getStitle());
-						}else{
-							System.out.println("중복되는 곡 : " + bys_title.getStitle());
-						}
-					}
+				        for(int j = 0; j <= result.size(); j++) {
+                                                if(!songArray[i].equals(result.get(j).getStitle())) {
+//                                                        System.out.println("r : " + result.get(j).getStitle() + " s : " + songArray[i]);
+//                                                                System.out.println(j);
+                                                        if (j + 1 == result.size()) {
+                                                                newSongDTO.setS_title(songArray[i]);
+                                                                newSongDTO.setS_singer(singerArray[i]);
+                                                                newSongDTO.setS_img(songIMGArray[i]);
+                                                                newSongRepository.save(newSongDTO.newSongEntity());
+                                                                break;
+                                                        }
+                                                }
+                                        }
                                 }
                         }
                         return true;
