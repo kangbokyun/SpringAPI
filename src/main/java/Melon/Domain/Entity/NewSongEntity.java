@@ -19,4 +19,6 @@ public class NewSongEntity {
 	private String s_singer;
 	@Column
 	private String s_img;
+        @Column
+        private String s_album;
 }

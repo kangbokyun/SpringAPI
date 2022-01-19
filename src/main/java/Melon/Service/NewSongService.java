@@ -29,7 +29,7 @@ public class NewSongService {
 		ArrayList<NewSongDTO> addArray = new ArrayList<>();
 		NewSongDTO newSongDTO = null;
 		for(NewSongEntity newSongEntity : newSongEntityList) {
-			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img());
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album());
 			addArray.add(newSongDTO);
 		}
 		return addArray;
@@ -58,7 +58,8 @@ public class NewSongService {
 			Elements song_img = document1.getElementsByClass("image_typeAll"); // 클래스 명으로 큰 틀 지정
 			Elements imgName = song_img.select("img"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
 			// 좋아요 뽑기
-			Elements songLike = document1.getElementsByClass("cnt");
+                        Elements album = document1.getElementsByClass("ellipsis rank03"); // 클래스 명으로 큰 틀 지정
+                        Elements albumName = album.select("a"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
 
 //			System.out.println(songLike.text());
 
@@ -66,6 +67,7 @@ public class NewSongService {
 			String[] songArray = new String[melon_song.size()]; // 곡명
 			String[] singerArray = new String[melon_song.size()]; // 가수명
 			String[] songIMGArray = new String[melon_song.size()];
+			String[] albumArray = new String[melon_song.size()];
 
 			NewSongDTO newSongDTO = new NewSongDTO();
 
@@ -78,22 +80,26 @@ public class NewSongService {
                                 singerArray[i] = singerName.get(i).text().split("\n")[0];
                                 // attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
                                 songIMGArray[i] = imgName.get(i).attr("abs:src");
+                                albumArray[i] = albumName.get(i).text().split("\n")[0];
+
                                 if (result.size() == 0) {
                                         newSongDTO.setS_title(songArray[i]);
                                         newSongDTO.setS_singer(singerArray[i]);
                                         newSongDTO.setS_img(songIMGArray[i]);
+                                        newSongDTO.setS_album(albumArray[i]);
                                         newSongRepository.save(newSongDTO.newSongEntity());
                                 } else if (result.size() != 0) {
 				        for(int j = 0; j <= result.size(); j++) {
                                                 if(!songArray[i].equals(result.get(j).getStitle())) {
-//                                                        System.out.println("r : " + result.get(j).getStitle() + " s : " + songArray[i]);
-//                                                                System.out.println(j);
                                                         if (j + 1 == result.size()) {
                                                                 newSongDTO.setS_title(songArray[i]);
                                                                 newSongDTO.setS_singer(singerArray[i]);
                                                                 newSongDTO.setS_img(songIMGArray[i]);
+                                                                newSongDTO.setS_album(albumArray[i]);
                                                                 newSongRepository.save(newSongDTO.newSongEntity());
                                                                 break;
+                                                        } else {
+                                                                return false;
                                                         }
                                                 }
                                         }

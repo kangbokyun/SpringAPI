@@ -11,6 +11,7 @@ public class NewSongDTO {
 	private String s_title;
 	private String s_singer;
 	private String s_img;
+        private String s_album;
 
 	public NewSongEntity newSongEntity() {
 		return NewSongEntity.builder()
@@ -19,6 +20,7 @@ public class NewSongDTO {
 			.stitle(this.s_title)
 			.s_singer(this.s_singer)
 			.s_img(this.s_img)
+                        .s_album(this.s_album)
 			.build();
 	}
 }
