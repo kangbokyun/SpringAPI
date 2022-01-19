@@ -5,9 +5,9 @@ function newSongUpdate() {
                         if(result == 1) {
                                 alert("최신곡이 업데이트 됐습니다.");
                                 location.href = "/NewSong/NewSongList";
-                        } else {
-                                alert("업데이트에 실패했습니다.")
                         }
                 }
         });
 }
+// 설정한 시간 지나면 자동 함수 실행
+setInterval(newSongUpdate, 100000);

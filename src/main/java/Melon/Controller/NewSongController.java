@@ -1,8 +1,10 @@
 package Melon.Controller;
 
 import Melon.Domain.DTO.NewSongDTO;
+import Melon.Domain.Entity.NewSongRepository;
 import Melon.Service.NewSongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +19,15 @@ public class NewSongController {
 	NewSongService newSongService;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	NewSongRepository newSongRepository;
 
 	@GetMapping("/")
 	public String goToMain() {
 		return "Melon/Main";
 	}
 
-	@GetMapping("NewSong/NewSongList")
+	@GetMapping("/NewSong/NewSongList")
 	public String goToNewSong(ArrayList<NewSongDTO> newSongDTO, Model model) {
 		if(newSongDTO != null) {
 			newSongDTO = newSongService.getNewSong();
@@ -34,7 +38,7 @@ public class NewSongController {
 		return "Melon/NewSong/NewSongList";
 	}
 
-	@GetMapping("NewSong/NewSongUpdate")
+	@GetMapping("/NewSong/NewSongUpdate")
 	@ResponseBody
 	public String NewSongUpdate() {
 		boolean result = newSongService.NewSongSave();
