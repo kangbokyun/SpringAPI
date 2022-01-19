@@ -12,6 +12,7 @@ public class NewSongDTO {
 	private String s_singer;
 	private String s_img;
         private String s_album;
+        private String s_createDate;
 
 	public NewSongEntity newSongEntity() {
 		return NewSongEntity.builder()

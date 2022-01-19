@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,8 @@ public class NewSongService {
 		ArrayList<NewSongDTO> addArray = new ArrayList<>();
 		NewSongDTO newSongDTO = null;
 		for(NewSongEntity newSongEntity : newSongEntityList) {
-			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album());
+                        String date = newSongEntity.getCreateTime().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album(), date);
 			addArray.add(newSongDTO);
 		}
 		return addArray;
@@ -57,7 +60,7 @@ public class NewSongService {
 			// 앨범컷 뽑기
 			Elements song_img = document1.getElementsByClass("image_typeAll"); // 클래스 명으로 큰 틀 지정
 			Elements imgName = song_img.select("img"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
-			// 좋아요 뽑기
+			// 앨범명 뽑기
                         Elements album = document1.getElementsByClass("ellipsis rank03"); // 클래스 명으로 큰 틀 지정
                         Elements albumName = album.select("a"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
 
