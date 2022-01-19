@@ -11,3 +11,4 @@ function newSongUpdate() {
                 }
         });
 }
+setInterval(newSongUpdate, 100000);

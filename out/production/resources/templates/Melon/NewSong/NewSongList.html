@@ -23,11 +23,11 @@
                                 </tr>
                                 <tr th:each = "newSongDTO : ${newSongDTO}">
                                         <td class = "col-md-2 text-center" th:text = "${newSongDTO.ns_no}"></td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_title}">제목</td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_singer}">가수</td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_title}"></td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_singer}"></td>
                                         <td class = "col-md-2 text-center"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
-                                        <td class = "col-md-2 text-center">gd</td>
-                                        <td class = "col-md-2 text-center">today</td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_album}"></td>
+                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_createDate}"></td>
                                 </tr>
                         </table>
                 </div>
