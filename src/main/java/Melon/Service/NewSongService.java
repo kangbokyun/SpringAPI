@@ -93,6 +93,8 @@ public class NewSongService {
 				} else if (result.size() != 0) {
 					for (int j = 0; j <= result.size(); j++) {
 						if (!songArray[i].equals(result.get(j).getStitle())) {
+                                                        System.out.println(songArray[i]);
+                                                        System.out.println("j + 1 : " + (j + 1) + "size : " + result.size());
 							if (j + 1 == result.size()) {
 								newSongDTO.setS_title(songArray[i]);
 								newSongDTO.setS_singer(singerArray[i]);
@@ -102,8 +104,8 @@ public class NewSongService {
 								newSongRepository.save(newSongDTO.newSongEntity());
 								break;
 							} else {
-								return false;
-							}
+                                                                break;
+                                                        }
 						}
 					}
 				}
