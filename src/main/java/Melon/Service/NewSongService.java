@@ -93,9 +93,6 @@ public class NewSongService {
 				} else if (result.size() != 0) {
 					for (int j = 0; j <= result.size(); j++) {
 						if (!songArray[i].equals(result.get(j).getStitle())) {
-							System.out.println("안중복 : " + songArray[i]);
-							System.out.println("i.size : " + i);
-							System.out.println("j.size : " + j);
 							if (j + 1 == result.size()) {
 								newSongDTO.setS_title(songArray[i]);
 								newSongDTO.setS_singer(singerArray[i]);
@@ -106,7 +103,6 @@ public class NewSongService {
 								break;
 							}
 						} else {
-							System.out.println("중복 컷 : " + songArray[i]);
 							break;
 						}
 					}
