@@ -64,7 +64,6 @@ public class NewSongService {
 			Elements album = document1.getElementsByClass("ellipsis rank03"); // 클래스 명으로 큰 틀 지정
 			Elements albumName = album.select("a"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
 
-//			System.out.println(songLike.text());
 
 			ArrayList<String> songAndSinger = new ArrayList<>(); // 곡명과 가수명을 합칠 리스트
 			String[] songArray = new String[melon_song.size()]; // 곡명
@@ -76,12 +75,13 @@ public class NewSongService {
 			List<NewSongEntity> result = newSongRepository.findAll();
 
 			for (int i = 0; i < melon_song.size(); i++) {
-				System.out.println("size - 1 : " + (result.size() - 1));
 				songArray[i] = songTitle.get(i).text().split("\n")[0];
 				singerArray[i] = singerName.get(i).text().split("\n")[0];
 				// attr("abs:src")는 src라는 속성 값의 절대 경로를 달라는 뜻이므로 URL 뿐 아니라 도메인도 붙어서 오게 된다.
 				songIMGArray[i] = imgName.get(i).attr("abs:src");
 				albumArray[i] = albumName.get(i).text().split("\n")[0];
+
+//				System.out.println(songArray[i]);
 
 				if (result.size() == 0) {
 					newSongDTO.setS_title(songArray[i]);
@@ -91,14 +91,14 @@ public class NewSongService {
 					newSongDTO.setS_no(melon_song.size() - i);
 					newSongRepository.save(newSongDTO.newSongEntity());
 				} else if (result.size() != 0) {
-					for (int j = 0; j == result.size(); j++) {
+					for (int j = 0; j <= result.size(); j++) {
 						if (!songArray[i].equals(result.get(j).getStitle())) {
 							if (j + 1 == result.size()) {
 								newSongDTO.setS_title(songArray[i]);
 								newSongDTO.setS_singer(singerArray[i]);
 								newSongDTO.setS_img(songIMGArray[i]);
 								newSongDTO.setS_album(albumArray[i]);
-								newSongDTO.setS_no(result.get(result.size()).getS_no() + i);
+								newSongDTO.setS_no(result.size() + i);
 								newSongRepository.save(newSongDTO.newSongEntity());
 								break;
 							}
