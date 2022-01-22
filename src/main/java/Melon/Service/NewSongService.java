@@ -91,14 +91,14 @@ public class NewSongService {
 					newSongDTO.setS_no(melon_song.size() - i);
 					newSongRepository.save(newSongDTO.newSongEntity());
 				} else if (result.size() != 0) {
-					for (int j = 0; j <= result.size(); j++) {
+					for (int j = 0; j == result.size(); j++) {
 						if (!songArray[i].equals(result.get(j).getStitle())) {
 							if (j + 1 == result.size()) {
 								newSongDTO.setS_title(songArray[i]);
 								newSongDTO.setS_singer(singerArray[i]);
 								newSongDTO.setS_img(songIMGArray[i]);
 								newSongDTO.setS_album(albumArray[i]);
-								newSongDTO.setS_no(result.get(0).getS_no() + i);
+								newSongDTO.setS_no(result.get(result.size()).getS_no() + i);
 								newSongRepository.save(newSongDTO.newSongEntity());
 								break;
 							}
