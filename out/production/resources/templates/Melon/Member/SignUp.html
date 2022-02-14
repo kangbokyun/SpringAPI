@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+</head>
+<body>
+        <div th:replace = "Melon/Header.html :: header"></div>
+        <script th:src = "@{/JS/Member/SignUpJS.js}"></script>
+        <div class = "container">
+                <div class = "row">
+                        <div class = "col-md-3 offset-md-2">
+                                <h4 class = "mt-2 text-center">ID</h4>
+                                <h4 class = "mt-2 text-center">PW</h4>
+                                <h4 class = "mt-2 text-center">Re:PW</h4>
+                                <h4 class = "mt-2 text-center">Name</h4>
+                                <h4 class = "mt-2 text-center">Email</h4>
+                                <h4 class = "mt-2 text-center">Phone</h4>
+                                <h4 class = "mt-2 text-center">Address</h4>
+                        </div>
+                        <div class = "col-md-4">
+                                <input type = "text" class = "form-control" placeholder="ID">
+                                <input type = "password" class = "form-control mt-2" placeholder="PW">
+                                <input type = "password" class = "form-control mt-2" placeholder="Re:PW">
+                                <input type = "text" class = "form-control mt-2" placeholder="Email">
+                                <input type = "email" class = "form-control mt-2" placeholder="Phone">
+                                <div class = "row">
+                                        <div class = "col-md-5 mt-2">
+                                                <input type="text" id="sample6_postcode" placeholder="우편번호" class = "form-control">
+                                        </div>
+                                        <div class = "col-md-7 mt-2">
+                                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class = "form-control">
+                                        </div>
+                                        <div class = "col-md-12 mt-2">
+                                                <input type="text" id="sample6_address" placeholder="주소" class = "form-control">
+                                        </div>
+                                        <div class = "col-md-5 mt-2">
+                                                <input type="text" id="sample6_extraAddress" placeholder="참고항목" class = "form-control">
+                                        </div>
+                                        <div class = "col-md-7 mt-2">
+                                                <input type="text" id="sample6_detailAddress" placeholder="상세주소" class = "form-control">
+                                        </div>
+                                </div>
+                        </div>
+                        <div class = "row mt-2">
+                                <button class = "btn btn-outline-success col-md-4 offset-md-2">SignUp</button>
+                                <button class = "btn col-md-4 offset-md-1">Cancel</button>
+                        </div>
+                </div>
+        </div>
+</body>
+</html>

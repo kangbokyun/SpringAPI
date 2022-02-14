@@ -1,15 +1,20 @@
 package Melon.Controller;
 
 import Melon.Domain.DTO.NewSongDTO;
+import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import Melon.Service.NewSongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -21,19 +26,21 @@ public class NewSongController {
 	HttpSession session;
 	@Autowired
 	NewSongRepository newSongRepository;
+	@Autowired
+	HttpServletRequest request;
 
 	@GetMapping("/")
 	public String goToMain() {
 		return "Melon/Main";
 	}
 
+	// 신곡 리스트
 	@GetMapping("/NewSong/NewSongList")
-	public String goToNewSong(ArrayList<NewSongDTO> newSongDTO, Model model) {
-		if(newSongDTO != null) {
-			newSongDTO = newSongService.getNewSong();
-			session.setAttribute("newSong", newSongDTO);
-			model.addAttribute("newSongDTO", newSongDTO);
-		}
+	public String goToNewSong(@PageableDefault Pageable pageable, Model model) {
+		HttpSession session = request.getSession();
+		Page<NewSongEntity> newsongDTOS = newSongService.NewSongPaging(pageable);
+
+		model.addAttribute("newSongDTOS", newsongDTOS);
 
 		return "Melon/NewSong/NewSongList";
 	}

@@ -9,6 +9,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -32,7 +36,7 @@ public class NewSongService {
 		NewSongDTO newSongDTO = null;
 		for (NewSongEntity newSongEntity : newSongEntityList) {
 			String date = newSongEntity.getCreateTime().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
-			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getS_no(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album(), date);
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getSno(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album(), date);
 			addArray.add(newSongDTO);
 		}
 		return addArray;
@@ -88,7 +92,7 @@ public class NewSongService {
 					newSongDTO.setS_singer(singerArray[i]);
 					newSongDTO.setS_img(songIMGArray[i]);
 					newSongDTO.setS_album(albumArray[i]);
-					newSongDTO.setS_no(melon_song.size() - i);
+					newSongDTO.setSno((melon_song.size() - i) - 1);
 					newSongRepository.save(newSongDTO.newSongEntity());
 				} else if (result.size() != 0) {
 					for (int j = 0; j <= result.size(); j++) {
@@ -98,7 +102,7 @@ public class NewSongService {
 								newSongDTO.setS_singer(singerArray[i]);
 								newSongDTO.setS_img(songIMGArray[i]);
 								newSongDTO.setS_album(albumArray[i]);
-								newSongDTO.setS_no(result.size() + i);
+								newSongDTO.setSno(result.size() + i);
 								newSongRepository.save(newSongDTO.newSongEntity());
 								break;
 							}
@@ -115,6 +119,17 @@ public class NewSongService {
 			return false;
 		}
 	}
-}
 
 	// 페이징
+	public Page<NewSongEntity> NewSongPaging(Pageable pageable) {
+		int page = 0;
+		if(pageable.getPageNumber() == 0) {
+			page = 0;
+		} else {
+			page = pageable.getPageNumber() - 1;
+		}
+
+		pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "sno"));
+		return newSongRepository.findAll(pageable);
+	}
+}

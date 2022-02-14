@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor @ToString @Builder
 public class NewSongDTO {
 	private int ns_no;
-	private int s_no;
+	private int sno;
 	private String s_title;
 	private String s_singer;
 	private String s_img;
@@ -17,7 +17,7 @@ public class NewSongDTO {
 	public NewSongEntity newSongEntity() {
 		return NewSongEntity.builder()
 			.ns_no(this.ns_no)
-			.s_no(this.s_no)
+			.sno(this.sno)
 			.stitle(this.s_title)
 			.s_singer(this.s_singer)
 			.s_img(this.s_img)

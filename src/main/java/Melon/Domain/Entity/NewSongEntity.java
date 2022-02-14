@@ -12,7 +12,7 @@ public class NewSongEntity extends BaseTimeEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ns_no;
 	@Column
-	private int s_no;
+	private int sno;
 	@Column
 	private String stitle;
 	@Column
