@@ -25,3 +25,24 @@
 |2022.03.21 ~ 2022.03.23|Member CRUD 구현|
 |2022.03.24 ~ 2022.03.28|Board CRUD 구현|
 |2022.03.29 ~ 2022.03.31|오류 수정 및 마무리|
+
+## 5. 주요기능 개발 우선순위
+
+|우선순위|기능|
+|---|---|
+|1|Member : 로그인 / 회원가입 / 아이디찾기 / 비밀번호찾기<br>Board : 글 등록 / 글 상세보기 / 파일관리 / 관련 API 가져오기 / 크롤링|
+|2|Member : 내정보 / 정보수정 / 회원탈퇴<br>Board : 글 수정 / 글 삭제 / 글 상세보기 / 관련 API 활용하기 / 크롤링 활용|
+|3|페이징 / 검색 / 댓글 / 원하는 가수 알림|
+|4|기타 세부기능|
+
+## 6. 명명규칙
+ - Project : PascalCase(UpperCamelCase) 적용
+ - Folder, File : PascalCase(UpperCamelCase) 적용
+ - Class, Interface : PascalCase(UpperCamelCase) 적용
+ - Method
+   - 이동(Mapping) : goTo --
+   - 컨트롤러(Controller) : -- Controller
+ - 주석 : Controller(Mapping) / Service(Method) 설명 기재
+
+## 7. Font
+ - 
