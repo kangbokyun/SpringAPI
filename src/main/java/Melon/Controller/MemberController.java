@@ -9,4 +9,5 @@ public class MemberController {
 	public String goToSignUp() {
 		return "Melon/Member/SignUp";
 	}
+
 }

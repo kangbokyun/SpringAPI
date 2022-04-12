@@ -22,15 +22,34 @@
                                         <td class = "col-md-2 text-center">앨범명</td>
                                         <td class = "col-md-2 text-center">등록일</td>
                                 </tr>
-                                <tr th:each = "newSongDTO : ${newSongDTO}">
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.ns_no}"></td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_title}"></td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_singer}"></td>
-                                        <td class = "col-md-2 text-center"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_album}"></td>
-                                        <td class = "col-md-2 text-center" th:text = "${newSongDTO.s_createDate}"></td>
+                                <tr th:each = "newSongDTO : ${newSongDTOS}">
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.ns_no}"></td>
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.stitle}"></td>
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_singer}"></td>
+                                        <td class = "col-md-2 text-center mt-5"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_album}"></td>
+<!--                                        <td class = "col-md-2 text-center" th:text = "${#temporals.format(newSongDTO.createdDate, 'yy-MM-dd / hh : mm')}"></td>-->
                                 </tr>
                         </table>
+                        <div>
+                                <ul class = "pagination justify-content-center" th:with = "start = ${T(Math).floor(newSongDTOS.number/10)*10+1}, last= ${start+9 < newSongDTOS.totalPages? start+9 : newSongDTOS.totalPages}">
+                                        <il class = "page-item"> <!-- 첫페이지 -->
+                                                <a class = "page-link" th:href = "@{/NewSong/NewSongList(page = 1)}"> <<< </a>
+                                        </il>
+                                        <li class = "page-item" th:class = "${newSongDTOS.first} ? 'disabled'"> <!-- 현재페이지 - 1 -->
+                                                <a class = "page-link" th:href = "${newSongDTOS.first} ? '#' : @{/NewSong/NewSongList(page = ${newSongDTOS.number})}"> < </a>
+                                        </li>
+                                        <li class = "page-item" th:each = "page : ${#numbers.sequence(start, last)}"> <!-- 현재페이지 -->
+                                                <a class = "page-link" th:href = "@{/NewSong/NewSongList(page = ${page})}" th:text = "${page}"></a>
+                                        </li>
+                                        <li class = "page-item" th:class = "${newSongDTOS.last} ? 'disabled'"> <!-- 현재페이지 + 1 -->
+                                                <a class = "page-link" th:href = "${newSongDTOS.last} ? '#' : @{/NewSong/NewSongList(page = ${newSongDTOS.number + 2})}"> > </a>
+                                        </li>
+                                        <li class = "page-item"> <!-- 마지막 페이지 -->
+                                                <a class = "page-link" th:href = "@{/NewSong/NewSongList(page = ${newSongDTOS.totalPages})}"> >>> </a>
+                                        </li>
+                                </ul>
+                        </div>
                 </div>
         </div>
 </body>

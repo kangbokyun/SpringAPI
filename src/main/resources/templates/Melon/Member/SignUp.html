@@ -19,11 +19,11 @@
                                 <h4 class = "mt-2 text-center">Address</h4>
                         </div>
                         <div class = "col-md-4">
-                                <input type = "text" class = "form-control" placeholder="ID">
-                                <input type = "password" class = "form-control mt-2" placeholder="PW">
-                                <input type = "password" class = "form-control mt-2" placeholder="Re:PW">
-                                <input type = "text" class = "form-control mt-2" placeholder="Email">
-                                <input type = "email" class = "form-control mt-2" placeholder="Phone">
+                                <input type = "text" class = "form-control" placeholder="ID" id = "mid">
+                                <input type = "password" class = "form-control mt-2" placeholder="PW" id = "mpw1">
+                                <input type = "password" class = "form-control mt-2" placeholder="Re:PW" id = "mpw2">
+                                <input type = "email" class = "form-control mt-2" placeholder="Email" id = "memail">
+                                <input type = "text" class = "form-control mt-2" placeholder="Phone" id = "mphone">
                                 <div class = "row">
                                         <div class = "col-md-5 mt-2">
                                                 <input type="text" id="sample6_postcode" placeholder="우편번호" class = "form-control">
@@ -43,7 +43,7 @@
                                 </div>
                         </div>
                         <div class = "row mt-2">
-                                <button class = "btn btn-outline-success col-md-4 offset-md-2">SignUp</button>
+                                <button class = "btn btn-outline-success col-md-4 offset-md-2" onclick = "SignUpCheck();">SignUp</button>
                                 <button class = "btn col-md-4 offset-md-1">Cancel</button>
                         </div>
                 </div>

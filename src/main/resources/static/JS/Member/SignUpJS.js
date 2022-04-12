@@ -45,3 +45,7 @@ function sample6_execDaumPostcode() {
                 }
         }).open();
 }
+
+function SignUpCheck() {
+    alert("qweqwe");
+}
