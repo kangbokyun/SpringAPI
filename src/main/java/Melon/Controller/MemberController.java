@@ -36,7 +36,7 @@ public class MemberController {
 	}
 
 	// 로그인
-	@GetMapping("/Member/Login")
+	@GetMapping("/Member/Login") @ResponseBody
 	public String Login(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw) {
 		MemberDTO memberDTO = memberService.MemberLogin(mid, mpw);
 

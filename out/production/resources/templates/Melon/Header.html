@@ -13,6 +13,8 @@
         <!-- jqurery -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+        <script th:src = "@{/JS/Member/SignUpJS.js}"></script>
+
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
         <div class="container">
@@ -46,14 +48,14 @@
                                                 <div class="modal-body p-5 pt-0">
                                                         <form class="">
                                                                 <div class="form-floating mb-3">
-                                                                        <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="UserID">
-                                                                        <label for="floatingInput">ID</label>
+                                                                        <input type="text" class="form-control rounded-4" id="modalid" placeholder="UserID">
+                                                                        <label for="modalid">ID</label>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                        <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="UserPW">
-                                                                        <label for="floatingPassword">Password</label>
+                                                                        <input type="password" class="form-control rounded-4" id="modalpw" placeholder="UserPW">
+                                                                        <label for="modalpw">Password</label>
                                                                 </div>
-                                                                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Login</button>
+                                                                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" th:onclick = "Login();">Login</button>
                                                                 <small class="text-muted">
                                                                         <div class = "row">
                                                                                 <a class = "col-md-6"><button class = "btn" style=" font-size: 12px;">아이디찾기</button></a>
