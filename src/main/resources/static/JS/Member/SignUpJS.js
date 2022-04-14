@@ -54,7 +54,6 @@ function SignUpCheck() {
     var memail = $("#memail").val();
     var mphone = $("#mphone").val();
     var maddress = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
-    alert(maddress);
     $.ajax({
         url: "/Member/SignUpController",
         data: {"mid":mid, "mpw":mpw1, "mname":mname, "memail":memail, "mphone":mphone, "maddress":maddress},
@@ -77,7 +76,7 @@ function Login() {
         data: {"mid":mid, "mpw":mpw},
         success: function(result) {
             if(result == 1) {
-                alert("로그인 성공");
+
                 location.href = "/";
             } else {
                 alert("로그인 실패 :: 아이디와 비밀번호 재확인 요망")
@@ -97,6 +96,21 @@ function Reservation(mno) {
                 $("#reservbtn").val("");
             } else {
                 alert("시스템에러 :: 관리자에게 문의");
+            }
+        }
+    });
+}
+
+function Logout(mno) {
+    $.ajax({
+        url: "/Member/Logout",
+        data: {"mno" : mno},
+        success: function(result) {
+            if(result == 1) {
+                alert("로그아웃 되었습니다.");
+                location.href = "/";
+            } else {
+                alert("로그아웃 실패 :: 관리자에게 문의");
             }
         }
     });

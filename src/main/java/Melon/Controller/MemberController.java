@@ -31,7 +31,6 @@ public class MemberController {
 	public String goToMyInfo(Model model) {
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
-		System.out.println(memberDTO + "||||||||||||||||||||||||||||||||");
 		model.addAttribute("MemberDTO", memberDTO);
 		return "Melon/Member/MyInfo";
 	}
@@ -50,14 +49,19 @@ public class MemberController {
 	// 로그인
 	@GetMapping("/Member/Login") @ResponseBody
 	public String Login(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw) {
+		System.out.println("1");
 		MemberDTO memberDTO = memberService.MemberLogin(mid, mpw);
+		System.out.println("14");
 
 		HttpSession session = request.getSession();
 		session.setAttribute("MemberDTO", memberDTO);
+		System.out.println("15");
 
 		if(memberDTO.getMid() != null && memberDTO.getMpw() != null) {
+		System.out.println("16-1");
 			return "1";
 		} else {
+		System.out.println("16-2");
 			return "0";
 		}
 	}
@@ -67,6 +71,20 @@ public class MemberController {
 
 	// 비밀번호 찾기
 
+
+	// 로그아웃
+	@GetMapping("/Member/Logout")
+	@ResponseBody
+	public String Logout(@RequestParam("mno")int mno) {
+		boolean result = memberService.Logout(mno);
+		if(result) {
+			HttpSession session = request.getSession();
+			session.setAttribute("MemberDTO", null);
+			return "1";
+		} else {
+			return "0";
+		}
+	}
 
 	// 회원정보수정
 
