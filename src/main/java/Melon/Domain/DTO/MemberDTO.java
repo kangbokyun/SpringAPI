@@ -12,4 +12,5 @@ public class MemberDTO {
 	private String mphone;
 	private String maddress;
 	private String memail;
+	private String mreserv;
 }

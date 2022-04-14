@@ -73,7 +73,7 @@ function Login() {
     var mid = $("#modalid").val();
     var mpw = $("#modalpw").val();
     $.ajax({
-        url: "/Member/Login"
+        url: "/Member/Login",
         data: {"mid":mid, "mpw":mpw},
         success: function(result) {
             if(result == 1) {
@@ -81,6 +81,22 @@ function Login() {
                 location.href = "/";
             } else {
                 alert("로그인 실패 :: 아이디와 비밀번호 재확인 요망")
+            }
+        }
+    });
+}
+
+function Reservation(mno) {
+    var reserv = $("#reservbtn").val();
+    $.ajax({
+        url: "/Member/Reservation",
+        data: {"reserv" : reserv, "mno" : mno},
+        success: function(result) {
+            if(result == 1) {
+                alert("예약되었습니다.");
+                $("#reservbtn").val("");
+            } else {
+                alert("시스템에러 :: 관리자에게 문의");
             }
         }
     });

@@ -4,6 +4,7 @@ import Melon.Domain.DTO.MemberDTO;
 import Melon.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +20,20 @@ public class MemberController {
 	@Autowired
 	HttpServletRequest request;
 
+	// 회원가입페이지로
 	@GetMapping("/Member/SignUp")
 	public String goToSignUp() {
 		return "Melon/Member/SignUp";
+	}
+
+	// 회원정보페이지로
+	@GetMapping("/Member/MyInfo")
+	public String goToMyInfo(Model model) {
+		HttpSession session = request.getSession();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
+		System.out.println(memberDTO + "||||||||||||||||||||||||||||||||");
+		model.addAttribute("MemberDTO", memberDTO);
+		return "Melon/Member/MyInfo";
 	}
 
 	// 회원가입
@@ -43,7 +55,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute("MemberDTO", memberDTO);
 
-		if(memberDTO.getMid() != null && memberDTO.getMname() != null && memberDTO.getMemail() != null) {
+		if(memberDTO.getMid() != null && memberDTO.getMpw() != null) {
 			return "1";
 		} else {
 			return "0";
@@ -59,5 +71,18 @@ public class MemberController {
 	// 회원정보수정
 
 
-	// 회원탈퇴퇴
+	// 회원탈퇴
+
+
+	// 가수예약하기
+	@GetMapping("/Member/Reservation")
+	@ResponseBody
+	public String Reservation(@RequestParam("reserv")String reserv, @RequestParam("mno")int mno) {
+		boolean result = memberService.Reservation(reserv, mno);
+		if(result) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
 }

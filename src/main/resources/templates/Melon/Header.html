@@ -32,8 +32,11 @@
                         </ul>
 
                         <div class="col-md-3 text-end">
-                                <button type="button" class="btn btn-outline-success me-2" data-bs-target = "#modallogin" data-bs-toggle = "modal">Login</button>
-                                <a th:href = "@{/Member/SignUp}"><button type="button" class="btn btn-success">Sign-up</button></a>
+                                <div th:if = "${MemberDTO != null}"><label th:text = "${MemberDTO.getMid()}"></label><label>님!</label></div>
+                                <button th:if = "${session.MemberDTO == null}" type="button" class="btn btn-outline-success me-2" data-bs-target = "#modallogin" data-bs-toggle = "modal">Login</button>
+                                <a th:href = "@{/Member/MyInfo}"><button th:unless = "${session.MemberDTO == null}" type="button" class="btn btn-outline-success me-2">MyInfo</button></a>
+                                <a th:href = "@{/Member/SignUp}"><button th:if = "${session.MemberDTO == null}" type="button" class="btn btn-success">Sign-up</button></a>
+                                <a th:href = "@{/Member/SignUp}"><button th:unless = "${session.MemberDTO == null}" type="button" class="btn btn-success">Logout</button></a>
                         </div>
 
                         <div class="modal fade" id = "modallogin" data-bs-keyboard = "false"  data-bs-backdrop = "static" tabindex="-1">
@@ -55,7 +58,7 @@
                                                                         <input type="password" class="form-control rounded-4" id="modalpw" placeholder="UserPW">
                                                                         <label for="modalpw">Password</label>
                                                                 </div>
-                                                                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" th:onclick = "Login();">Login</button>
+                                                                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" onclick = "Login();">Login</button>
                                                                 <small class="text-muted">
                                                                         <div class = "row">
                                                                                 <a class = "col-md-6"><button class = "btn" style=" font-size: 12px;">아이디찾기</button></a>

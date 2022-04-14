@@ -32,15 +32,32 @@ public class MemberService {
     // 로그인
     public MemberDTO MemberLogin(String mid, String mpw) {
         List<MemberEntity> memberEntities = memberRepository.findAll();
+        MemberDTO memberDTO = new MemberDTO();
         for(MemberEntity memberEntity : memberEntities) {
             if(memberEntity.getMid().equals(mid) && memberEntity.getMpw().equals(mpw)) {
-                MemberDTO memberDTO = new MemberDTO();
                 memberDTO.setMid(memberEntity.getMid());
                 memberDTO.setMname(memberEntity.getMname());
                 memberDTO.setMemail(memberEntity.getMemail());
-                return memberDTO;
+                memberDTO.setMpw(memberEntity.getMpw());
+                memberDTO.setMphone(memberEntity.getMphone());
+                memberDTO.setMaddress(memberEntity.getMaddress());
+                memberDTO.setMno(memberEntity.getMno());
+                memberDTO.setMreserv(memberEntity.getMreserv());
             }
         }
-        return null;
+        return memberDTO;
+    }
+
+    // 가수 예약
+    public boolean Reservation(String reserv, int mno) {
+        MemberEntity memberEntity = memberRepository.getById(mno);
+        if(memberEntity.getMreserv() == null) {
+            memberEntity.setMreserv(reserv);
+            memberRepository.save(memberEntity);
+        } else {
+            memberEntity.setMreserv(memberEntity.getMreserv() + "," + reserv);
+            memberRepository.save(memberEntity);
+        }
+        return true;
     }
 }

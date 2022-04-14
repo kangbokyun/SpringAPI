@@ -22,4 +22,6 @@ public class MemberEntity extends BaseTimeEntity {
     private String mphone;
     @Column
     private String maddress;
+    @Column
+    private String mreserv;
 }

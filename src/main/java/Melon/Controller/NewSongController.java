@@ -1,5 +1,6 @@
 package Melon.Controller;
 
+import Melon.Domain.DTO.MemberDTO;
 import Melon.Domain.DTO.NewSongDTO;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
@@ -23,15 +24,20 @@ public class NewSongController {
 	@Autowired
 	NewSongService newSongService;
 	@Autowired
-	HttpSession session;
-	@Autowired
 	NewSongRepository newSongRepository;
 	@Autowired
 	HttpServletRequest request;
 
 	@GetMapping("/")
-	public String goToMain() {
-		return "Melon/Main";
+	public String goToMain(Model model) {
+		HttpSession session = request.getSession();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
+		if(memberDTO != null) {
+			model.addAttribute("MemberDTO", memberDTO);
+			return "Melon/Main";
+		} else {
+			return "Melon/Main";
+		}
 	}
 
 	// 신곡 리스트
