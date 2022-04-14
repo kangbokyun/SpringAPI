@@ -36,7 +36,8 @@ public class MemberController {
 	}
 
 	// 회원가입
-	@GetMapping("/Member/SignUpController") @ResponseBody
+	@GetMapping("/Member/SignUpController")
+	@ResponseBody
 	public String SignUpController(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw, @RequestParam("mname")String mname, @RequestParam("memail")String memail, @RequestParam("mphone")String mphone, @RequestParam("maddress")String maddress) {
 		boolean result = memberService.MemberSignUp(mid, mpw, mname, memail, mphone, maddress);
 		if(result) {
@@ -47,7 +48,8 @@ public class MemberController {
 	}
 
 	// 로그인
-	@GetMapping("/Member/Login") @ResponseBody
+	@GetMapping("/Member/Login")
+	@ResponseBody
 	public String Login(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw) {
 		System.out.println("1");
 		MemberDTO memberDTO = memberService.MemberLogin(mid, mpw);
@@ -58,7 +60,9 @@ public class MemberController {
 		System.out.println(session.getAttribute("MemberDTO"));
 		System.out.println("16");
 
-		if(memberDTO.getMid() != null && memberDTO.getMpw() != null) {
+		System.out.println("mid : " + mid + " memberDTO.getMid() : " + memberDTO.getMid());
+
+		if(memberDTO.getMid().equals(mid)) {
 		System.out.println("17-1");
 			return "1";
 		} else {
