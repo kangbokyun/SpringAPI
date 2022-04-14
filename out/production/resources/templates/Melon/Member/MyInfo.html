@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace = "Melon/Header.html :: header"></div>
+    <script th:src = "@{/JS/Member/SignUpJS.js}"></script>
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-6">
+                <table class = "table">
+                    <tr><td style = "font-size: 35px;">내 정보</td><td style = "float: right"><button class = "btn btn-outline-info">정보수정</button></td></tr>
+                    <tr><td>ID</td><td th:text = "${session.MemberDTO.getMid()}"></td></tr>
+                    <tr><td>NAME</td><td th:text = "${session.MemberDTO.getMname()}"></td></tr>
+                    <tr><td>PHONE</td><td th:text = "${session.MemberDTO.getMphone()}"></td></tr>
+                    <tr><td>EMAIL</td><td th:text = "${session.MemberDTO.getMemail()}"></td></tr>
+                    <tr><td>ADDRESS</td><td th:text = "${session.MemberDTO.getMaddress()}"></td></tr>
+                </table>
+            </div>
+            <div class = "col-md-6">
+                <div style = "font-size: 35px;">알림예약</div>
+                <div style = "width: 100%; margin-top: 15px;">
+                    <div class = "row">
+                        <div class = "col-md-10">
+                            <input type = "text" class = "form-control" placeholder="예약할 가수 명 입력" id = "reservbtn">
+                        </div>
+                        <div class = "col-md-2">
+                            <button class = "btn btn-outline-success" th:onclick = "Reservation([[${session.MemberDTO.getMno()}]]);">예약</button>
+                        </div>
+                        <div th:text = "${MemberDTO.getMreserv()}" style = "margin-top: 15px;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

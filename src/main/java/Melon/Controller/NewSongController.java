@@ -31,9 +31,10 @@ public class NewSongController {
 	@GetMapping("/")
 	public String goToMain(Model model) {
 		HttpSession session = request.getSession();
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
-		if(memberDTO != null) {
+		if(session.getAttribute("MemberDTO") != null) {
+			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
 			model.addAttribute("MemberDTO", memberDTO);
+			System.out.println("goToMain in Session Value -> Mid : " + memberDTO.getMid());
 			return "Melon/Main";
 		} else {
 			return "Melon/Main";

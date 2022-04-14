@@ -51,17 +51,18 @@ public class MemberController {
 	public String Login(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw) {
 		System.out.println("1");
 		MemberDTO memberDTO = memberService.MemberLogin(mid, mpw);
-		System.out.println("14");
+		System.out.println("15");
 
 		HttpSession session = request.getSession();
 		session.setAttribute("MemberDTO", memberDTO);
-		System.out.println("15");
+		System.out.println(session.getAttribute("MemberDTO"));
+		System.out.println("16");
 
 		if(memberDTO.getMid() != null && memberDTO.getMpw() != null) {
-		System.out.println("16-1");
+		System.out.println("17-1");
 			return "1";
 		} else {
-		System.out.println("16-2");
+		System.out.println("17-2");
 			return "0";
 		}
 	}
