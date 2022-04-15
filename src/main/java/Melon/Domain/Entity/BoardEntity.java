@@ -22,4 +22,6 @@ public class BoardEntity extends BaseTimeEntity {
 
     @ManyToOne @JoinColumn(name = "cateno")
     private CategoryEntity categoryEntity;
+    @ManyToOne @JoinColumn(name = "mcno")
+    private MiddleCategoryEntity middleCategory;
 }

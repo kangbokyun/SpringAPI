@@ -31,33 +31,20 @@ public class MemberService {
 
     // 로그인
     public MemberDTO MemberLogin(String mid, String mpw) {
-        System.out.println("2");
         List<MemberEntity> memberEntities = memberRepository.findAll();
-        System.out.println("3");
         MemberDTO memberDTO = new MemberDTO();
         for(MemberEntity memberEntity : memberEntities) {
-            System.out.println("4");
             if(memberEntity.getMid().equals(mid) && memberEntity.getMpw().equals(mpw)) {
-                System.out.println("5");
                 memberDTO.setMid(memberEntity.getMid());
-                System.out.println("6");
                 memberDTO.setMname(memberEntity.getMname());
-                System.out.println("7");
                 memberDTO.setMemail(memberEntity.getMemail());
-                System.out.println("8");
                 memberDTO.setMpw(memberEntity.getMpw());
-                System.out.println("9");
                 memberDTO.setMphone(memberEntity.getMphone());
-                System.out.println("10");
                 memberDTO.setMaddress(memberEntity.getMaddress());
-                System.out.println("11");
                 memberDTO.setMno(memberEntity.getMno());
-                System.out.println("12");
                 memberDTO.setMreserv(memberEntity.getMreserv());
-                System.out.println("13");
             }
         }
-        System.out.println("14");
         return memberDTO;
     }
 

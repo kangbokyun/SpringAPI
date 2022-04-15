@@ -34,9 +34,11 @@ public class NewSongController {
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
 			model.addAttribute("MemberDTO", memberDTO);
-			System.out.println("goToMain in Session Value -> Mid : " + memberDTO.getMid());
+			return "Melon/Main";
+		} else {
+			session.setAttribute("MemberDTO", null);
+			return "Melon/Main";
 		}
-		return "Melon/Main";
 	}
 
 	// 신곡 리스트
