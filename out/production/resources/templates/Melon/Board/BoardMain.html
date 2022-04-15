@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace = "Melon/Header.html :: header"></div>
+    <script th:src = "@{/JS/Board/BoardJS.js}"></script>
+    <div class = "container">
+        <table class = "table">
+            <tr class = "row" style = "text-align: center; font-size: 20px;"><th class = "col-md-4" onclick = "SingMenu();" style = "cursor: pointer;">노래</th><th class = "col-md-4">가수</th><th class = "col-md-4">자유</th></tr>
+            <tr class = "row">
+                <td colspan = "3">
+                    <input type = "hidden" id = "hiddenValue" value = "1">
+                    <div class = "container" style = "width: 60%;" id = "menuRow">
+
+                    </div>
+                </td>
+        </table>
+    </div>
+</body>
+</html>

@@ -19,6 +19,6 @@ public class NewSongEntity extends BaseTimeEntity{
 	private String s_singer;
 	@Column
 	private String s_img;
-        @Column
-        private String s_album;
+	@Column
+	private String s_album;
 }

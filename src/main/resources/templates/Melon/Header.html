@@ -14,6 +14,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
         <script th:src = "@{/JS/Member/SignUpJS.js}"></script>
+        <script th:src = "@{/JS/Member/MemberJS.js}"></script>
 
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -26,8 +27,8 @@
                         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                                 <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Home</a></li>
                                 <li><a th:href="@{/NewSong/NewSongList}" class="nav-link px-2 link-dark">NewSong</a></li>
-                                <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-                                <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+                                <li><a href="#" class="nav-link px-2 link-dark">Top100</a></li>
+                                <li><a th:href="@{/Board/BoardMain}" class="nav-link px-2 link-dark">Board</a></li>
                                 <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
                         </ul>
 
