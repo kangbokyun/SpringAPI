@@ -9,7 +9,13 @@
     <script th:src = "@{/JS/Board/BoardJS.js}"></script>
     <div class = "container">
         <table class = "table">
-            <tr class = "row" style = "text-align: center; font-size: 20px;"><th class = "col-md-4" onclick = "SingMenu();" style = "cursor: pointer;">노래</th><th class = "col-md-4">가수</th><th class = "col-md-4">자유</th></tr>
+            <tr class = "row" style = "text-align: center; font-size: 20px;">
+                <th class = "col-md-4" th:onclick = "SingMenu([[${cateStat.index}]]);" style = "cursor: pointer;" th:each = "cate : ${Category}">
+                    <label th:text = "${cate.getCatename()}"></label>
+                    <input type = "hidden" th:value = "${cateStat.index}" th:id = "cateNo+${cateStat.index}">
+                    <input type = "hidden" value = "0" id = "cateNo">
+                </th>
+            </tr>
             <tr class = "row">
                 <td colspan = "3">
                     <input type = "hidden" id = "hiddenValue" value = "1">

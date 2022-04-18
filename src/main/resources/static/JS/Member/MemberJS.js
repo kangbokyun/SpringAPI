@@ -1,3 +1,4 @@
+// 로그인
 function Login() {
     var mid = $("#modalid").val();
     var mpw = $("#modalpw").val();

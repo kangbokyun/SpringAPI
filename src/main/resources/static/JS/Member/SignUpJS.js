@@ -1,3 +1,4 @@
+// 카카오주소
 function sample6_execDaumPostcode() {
         new daum.Postcode({
                 oncomplete: function(data) {
@@ -46,6 +47,7 @@ function sample6_execDaumPostcode() {
         }).open();
 }
 
+// 회원가입
 function SignUpCheck() {
     var mid = $("#mid").val();
     var mpw1 = $("#mpw1").val();
@@ -69,7 +71,7 @@ function SignUpCheck() {
 }
 
 
-
+// 가수 예약하기
 function Reservation(mno) {
     var reserv = $("#reservbtn").val();
     $.ajax({
@@ -86,6 +88,7 @@ function Reservation(mno) {
     });
 }
 
+// 로그아웃
 function Logout(mno) {
     $.ajax({
         url: "/Member/Logout",

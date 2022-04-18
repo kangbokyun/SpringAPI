@@ -6,7 +6,13 @@
 </head>
 <body>
     <div th:replace = "Melon/Header.html :: header"></div>
-    <script th:src = "@{/JS/Board/BoardJS,js}"></script>
-    <h1>글쓰기 페이지</h1>
+    <script th:src = "@{/JS/Board/BoardJS.js}"></script>
+    <div class = "container" style = "width: 40%;">
+        <table class = "table" style = "border: none;">
+            <tr style = "border-bottom: none;"><th>제목</th><th><input type = "text" class = "form-control" id = "titleW"></th></tr>
+            <tr style = "border-bottom: none;"><th>내용</th><th><textarea class = "form-control" style = "height: 500px;" id = "contentsW"></textarea></th></tr>
+            <tr><td colspan = "2"><button class = "btn btn-outline-success" onclick = "BoardWrite();">등록</button><button class = "btn btn-outline-secondary" style = "margin-left: 5px;">취소</td></tr>
+        </table>
+    </div>
 </body>
 </html>
