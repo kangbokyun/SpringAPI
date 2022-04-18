@@ -13,7 +13,18 @@
             <tr class = "row">
                 <td colspan = "3">
                     <input type = "hidden" id = "hiddenValue" value = "1">
-                    <div class = "container" style = "width: 60%;" id = "menuRow">
+                    <div class = "container" style = "width: 80%;">
+                        <div class = "row">
+                            <div class = "col-md-1" th:each = "MCate : ${MCategory}">
+                                <label th:text = "${MCate.getMcname()}" id = "middleC" th:onclick = "MiddleCateClick([[${MCateStat.index}]]);"></label>
+                                <input type = "hidden" th:id = "middleIndex+${MCateStat.index}" th:value = "${MCateStat.index}">
+                                <input type = "hidden" value = "0" id = "inputValue">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class = "col-md-12" id = "tableView">
 
                     </div>
                 </td>

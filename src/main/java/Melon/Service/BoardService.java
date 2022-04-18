@@ -56,4 +56,11 @@ public class BoardService {
         }
         return middleCategoryDTOS;
     }
+
+    // 작은 카테고리 클릭 시 반환되는 번호로 카테고리 이름 가져오기
+    public String MiddleCategoryName(int indexNo) {
+        Optional<MiddleCategoryEntity> mc = middleCategoryRepository.findById(indexNo);
+        String mcn = mc.get().getMcname();
+        return mcn;
+    }
 }
