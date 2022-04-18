@@ -40,3 +40,20 @@ function BoardWrite() {
         }
     });
 }
+
+// 글 상세보기
+function BoardView(bno) {
+var bno1 = bno;
+    $.ajax({
+        url: "/Board/BoardView",
+        data: {"bno" : bno1},
+        success: function(result) {
+            alert("result : " + result);
+            if(result == 1) {
+                location.href = "/Board/BoardView";
+            } else {
+                alert("zzzzzzzzzzzzzzzzzz")
+            }
+        }
+    });
+}

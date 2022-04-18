@@ -121,4 +121,23 @@ public class BoardService {
         }
         return boardDTOS;
     }
+
+    // 글 상세보기
+    public BoardDTO BoardView(int bno) {
+        BoardDTO boardDTO = new BoardDTO();
+        Optional<BoardEntity> boardEntity = boardRepository.findById(bno);
+        boardDTO.setBno(boardEntity.get().getBno());
+        boardDTO.setBtitle(boardEntity.get().getBtitle());
+        boardDTO.setBcontents(boardEntity.get().getBcontents());
+        boardDTO.setBwriter(boardEntity.get().getBwriter());
+        boardDTO.setBview(boardEntity.get().getBview() + 1);
+        return boardDTO;
+    }
+
+    // 조회수 증가
+//    public void BoardViewPlus(int bview, int bno) {
+//        Optional<BoardEntity> boardEntity = boardRepository.findById(bno);
+//        boardEntity.get().setBview(Integer.toString(bview));
+//        boardRepository.save(boardEntity);
+//    }
 }

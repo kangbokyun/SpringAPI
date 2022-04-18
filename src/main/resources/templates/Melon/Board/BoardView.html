@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace = "Melon/Header.html :: header"></div>
+    <script th:src = "@{/JS/Board/BoardJS.js}"></script>
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-2">
+                <label>번호</label>
+                <label th:text = "${BoardView.getBno}"></label>
+            </div>
+            <div class = "col-md-10">
+                <label>제목</label>
+                <label th:text = "${BoardView.getBtitle}"></label>
+            </div>
+            <div class = "col-md-4">
+                <label>작성자</label>
+                <label th:text = "${BoardView.getBwriter}"></label>
+            </div>
+            <div class = "col-md-4">
+                <label>등록일</label>
+                <label>123123</label>
+            </div>
+            <div class = "col-md-4">
+                <label>조회수</label>
+                <label th:text = "${BoardView.getBview}"></label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

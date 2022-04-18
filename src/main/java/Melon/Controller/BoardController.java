@@ -68,4 +68,17 @@ public class BoardController {
             return "0";
         }
     }
+
+    // 글 상세보기 페이지로
+    @GetMapping("/Board/BoardView") @ResponseBody
+    public String goToBoardView(@RequestParam("bno")int bno, Model model) {
+        BoardDTO boardDTO = boardService.BoardView(bno);
+
+        model.addAttribute("BoardView", boardDTO);
+        if(boardDTO != null) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
 }
