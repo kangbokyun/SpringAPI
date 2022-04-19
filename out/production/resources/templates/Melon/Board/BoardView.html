@@ -10,24 +10,60 @@
     <div class = "container">
         <div class = "row">
             <div class = "col-md-2">
-                <label>번호</label>
+                <label>번호 : </label>
                 <label th:text = "${BoardView.getBno}"></label>
             </div>
             <div class = "col-md-10">
-                <label>제목</label>
+                <label>제목 : </label>
                 <label th:text = "${BoardView.getBtitle}"></label>
             </div>
             <div class = "col-md-4">
-                <label>작성자</label>
+                <label>작성자 : </label>
                 <label th:text = "${BoardView.getBwriter}"></label>
             </div>
             <div class = "col-md-4">
-                <label>등록일</label>
+                <label>등록일 : </label>
                 <label>123123</label>
             </div>
             <div class = "col-md-4">
                 <label>조회수</label>
                 <label th:text = "${BoardView.getBview}"></label>
+            </div>
+            <hr>
+            <div class = "col-md-12 text-center">
+                <label>내용</label>
+            </div>
+            <hr>
+            <div class = "col-md-12">
+                <label th:text = "${BoardView.getBcontents}"></label>
+            </div>
+        </div>
+        <br><br><br><br><br>
+        <div class = "row">
+            <div class = "col-md-2">
+                <label>Reply</label>
+            </div>
+            <div class = "col-md-10">
+                <label></label>
+            </div>
+            <div class = "col-md-10">
+                <input type = "text" class = "form-control" style = "height: 80px; width: 100%;" id = "ReplyTag">
+            </div>
+            <div class = "col-md-2">
+                <button class = "btn btn-outline-secondary" style = "height: 80px; width: 100%;" th:onclick = "ReplyWrite([[${BoardView.getBno}]], [[${session.MemberDTO.getMno}]]);">등록</button>
+            </div>
+            <div class = "col-md-12" id = "ReplyTable">
+                <div class = "container ml-5">
+                    <table class = "table table-striped text-center">
+                        <tr><th>작성자</th><th>내용</th><th>등록일자</th><th>비고</th></tr>
+                        <tr th:each = "reply : ${ReplyDTO}">
+                            <td th:text = "${reply.getRwriter()}"></td>
+                            <td th:text = "${reply.getRcontents()}">하하하하하ㅏ하하ㅏㅎ</td>
+                            <td th:text = "${reply.getCreatedDate()}"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

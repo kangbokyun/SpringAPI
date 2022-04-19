@@ -9,7 +9,12 @@
   </tr>
   <tr th:each = "boardDTO : ${BoardDTO}">
     <td class = "col-md-1 text-center" th:if = "${boardDTO != null}" th:text = "${boardDTO.getBno()}"></td>
-    <td class = "col-md-6 text-center" th:if = "${boardDTO != null}" th:text = "${boardDTO.getBtitle()}" th:onclick = "BoardView([[${boardDTO.getBno()}]]);"></td>
+    <td class = "col-md-6 text-center" th:if = "${boardDTO != null}">
+      <form action = "/Board/BoardView" method = "get">
+        <button type = "submit" style = "border: none; background-color: white;" th:text = "${boardDTO.getBtitle()}"></button>
+        <input type = "hidden" th:value = "${boardDTO.getBno()}" name = "bno">
+      </form>
+    </td>
     <td class = "col-md-2 text-center" th:if = "${boardDTO != null}" th:text = "${boardDTO.getBwriter()}"></td>
     <td class = "col-md-2 text-center" th:if = "${boardDTO != null}">123123</td>
     <td class = "col-md-1 text-center" th:if = "${boardDTO != null}" th:text = "${boardDTO.getBview()}"></td>

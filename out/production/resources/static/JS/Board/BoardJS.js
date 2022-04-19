@@ -41,18 +41,23 @@ function BoardWrite() {
     });
 }
 
-// 글 상세보기
-function BoardView(bno) {
-var bno1 = bno;
+// 댓글 등록
+function ReplyWrite(bno, mno) {
+    var Reply = $("#ReplyTag").val();
+    var bno = bno;
+    var mno = mno;
+    alert(bno);
+    alert(mno);
     $.ajax({
-        url: "/Board/BoardView",
-        data: {"bno" : bno1},
+        url: "/Board/RiplyWrite",
+        data: {"reply" : Reply, "bno" : bno, "mno" : mno},
         success: function(result) {
-            alert("result : " + result);
+            alert(result);
             if(result == 1) {
-                location.href = "/Board/BoardView";
+                alert("댓글이 등록 되었습니다.");
+                $("#ReplyTable").load(location.href+ " #ReplyTable");
             } else {
-                alert("zzzzzzzzzzzzzzzzzz")
+                alert("댓글 등록 실패 :: 관리자에게 문의");
             }
         }
     });

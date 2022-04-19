@@ -1,9 +1,6 @@
 package Melon.Service;
 
-import Melon.Domain.DTO.BoardDTO;
-import Melon.Domain.DTO.CategoryDTO;
-import Melon.Domain.DTO.MemberDTO;
-import Melon.Domain.DTO.MiddleCategoryDTO;
+import Melon.Domain.DTO.*;
 import Melon.Domain.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +21,10 @@ public class BoardService {
     MiddleCategoryRepository middleCategoryRepository;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    ReplyRepository replyRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     // 어디서 시작하든 카테고리 Database 채우기
     public List<CategoryDTO> CreateCategory() {
@@ -130,14 +131,52 @@ public class BoardService {
         boardDTO.setBtitle(boardEntity.get().getBtitle());
         boardDTO.setBcontents(boardEntity.get().getBcontents());
         boardDTO.setBwriter(boardEntity.get().getBwriter());
-        boardDTO.setBview(boardEntity.get().getBview() + 1);
+        boardDTO.setBview(boardEntity.get().getBview());
         return boardDTO;
     }
 
     // 조회수 증가
-//    public void BoardViewPlus(int bview, int bno) {
-//        Optional<BoardEntity> boardEntity = boardRepository.findById(bno);
-//        boardEntity.get().setBview(Integer.toString(bview));
-//        boardRepository.save(boardEntity);
-//    }
+    public void BoardViewPlus(int bno) {
+        Optional<BoardEntity> boardEntity = boardRepository.findById(bno);
+        String bview = boardEntity.get().getBview();
+        boardEntity.get().setBview(Integer.toString(Integer.parseInt(bview) + 1));
+        boardRepository.save(boardEntity.get());
+    }
+
+    // 댓글 쓰기
+    public boolean ReplyWrite(String reply, int mno, int bno) {
+        if(reply != null && mno >= 0 && bno >= 0) {
+            ReplyEntity replyEntity = ReplyEntity.builder()
+                    .rcontents(reply)
+                    .rmno(mno)
+                    .rbno(bno)
+                    .rdistinctno(1)
+                    .build();
+            replyRepository.save(replyEntity);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 댓글 가져오기
+    public List<ReplyDTO> ReplyList(int bno) {
+        List<ReplyEntity> replyEntity = replyRepository.findAll();
+        List<ReplyDTO> replyDTOS = new ArrayList<>();
+        for(ReplyEntity replyEntity1 : replyEntity) {
+            if (replyEntity1.getRbno() == bno) {
+                ReplyDTO replyDTO = new ReplyDTO();
+                replyDTO.setRno(replyEntity1.getRno());
+                replyDTO.setRcontents(replyEntity1.getRcontents());
+                replyDTO.setRmno(replyEntity1.getRmno());
+                replyDTO.setRbno(replyEntity1.getRbno());
+                Optional<MemberEntity> memberEntity = memberRepository.findById(replyEntity1.getRmno());
+                replyDTO.setRwriter(memberEntity.get().getMid());
+                String date = replyEntity1.getCreateTime().toString().split("T")[0];
+                replyDTO.setCreatedDate(date);
+                replyDTOS.add(replyDTO);
+            }
+        }
+        return replyDTOS;
+    }
 }

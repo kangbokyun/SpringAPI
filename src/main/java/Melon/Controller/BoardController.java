@@ -3,6 +3,7 @@ package Melon.Controller;
 import Melon.Domain.DTO.BoardDTO;
 import Melon.Domain.DTO.CategoryDTO;
 import Melon.Domain.DTO.MiddleCategoryDTO;
+import Melon.Domain.DTO.ReplyDTO;
 import Melon.Service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -70,12 +71,23 @@ public class BoardController {
     }
 
     // 글 상세보기 페이지로
-    @GetMapping("/Board/BoardView") @ResponseBody
-    public String goToBoardView(@RequestParam("bno")int bno, Model model) {
+    @GetMapping("/Board/BoardView")
+    public String goToBoardView(Model model) {
+        int bno = Integer.parseInt(request.getParameter("bno"));
+        boardService.BoardViewPlus(bno);
         BoardDTO boardDTO = boardService.BoardView(bno);
+        List<ReplyDTO> replyDTO = boardService.ReplyList(bno);
 
+        model.addAttribute("ReplyDTO", replyDTO);
         model.addAttribute("BoardView", boardDTO);
-        if(boardDTO != null) {
+        return "Melon/Board/BoardView";
+    }
+
+    // 댓글쓰기
+    @GetMapping("/Board/RiplyWrite") @ResponseBody
+    public String ReplyWrite(@RequestParam("reply")String reply, @RequestParam("bno")int bno, @RequestParam("mno")int mno) {
+        boolean result = boardService.ReplyWrite(reply, mno, bno);
+        if(result) {
             return "1";
         } else {
             return "0";
