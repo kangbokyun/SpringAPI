@@ -46,8 +46,6 @@ function ReplyWrite(bno, mno) {
     var Reply = $("#ReplyTag").val();
     var bno = bno;
     var mno = mno;
-    alert(bno);
-    alert(mno);
     $.ajax({
         url: "/Board/RiplyWrite",
         data: {"reply" : Reply, "bno" : bno, "mno" : mno},
@@ -56,6 +54,7 @@ function ReplyWrite(bno, mno) {
             if(result == 1) {
                 alert("댓글이 등록 되었습니다.");
                 $("#ReplyTable").load(location.href+ " #ReplyTable");
+                $("#ReplyTag").val("");
             } else {
                 alert("댓글 등록 실패 :: 관리자에게 문의");
             }
