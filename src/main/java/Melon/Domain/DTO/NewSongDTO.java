@@ -21,7 +21,7 @@ public class NewSongDTO {
 			.stitle(this.s_title)
 			.s_singer(this.s_singer)
 			.s_img(this.s_img)
-                        .s_album(this.s_album)
+			.s_album(this.s_album)
 			.build();
 	}
 }

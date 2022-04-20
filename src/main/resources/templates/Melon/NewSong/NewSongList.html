@@ -16,19 +16,19 @@
                         <table class = "table">
                                 <tr>
                                         <td class = "col-md-2 text-center">번호</td>
-                                        <td class = "col-md-2 text-center">제목</td>
-                                        <td class = "col-md-2 text-center">가수</td>
+                                        <td class = "col-md-3 text-center">제목</td>
+                                        <td class = "col-md-3 text-center">가수</td>
                                         <td class = "col-md-2 text-center">앨범컷</td>
                                         <td class = "col-md-2 text-center">앨범명</td>
-                                        <td class = "col-md-2 text-center">등록일</td>
                                 </tr>
                                 <tr th:each = "newSongDTO : ${newSongDTOS}">
-                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.ns_no}"></td>
-                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.stitle}"></td>
-                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_singer}"></td>
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.ns_no}" style = "vertical-align : middle"></td>
+                                        <td th:if = "${newSongDTO.stitle.length()} >= 16" class = "col-md-2 text-center mt-5" th:text = "${#strings.substring(newSongDTO.stitle, 0, 15) + '...'}" style = "vertical-align : middle"></td>
+                                        <td th:unless = "${newSongDTO.stitle.length()} >= 16" class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.stitle}" style = "vertical-align : middle"></td>
+                                        <td th:if = "${newSongDTO.s_singer.length()} >= 16" class = "col-md-2 text-center mt-5" th:text = "${#strings.substring(newSongDTO.s_singer, 0, 15) + '...'}" style = "vertical-align : middle"></td>
+                                        <td th:unless = "${newSongDTO.s_singer.length()} >= 16" class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_singer}" style = "vertical-align : middle"></td>
                                         <td class = "col-md-2 text-center mt-5"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
-                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_album}"></td>
-<!--                                        <td class = "col-md-2 text-center" th:text = "${#temporals.format(newSongDTO.createdDate, 'yy-MM-dd / hh : mm')}"></td>-->
+                                        <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_album}" style = "vertical-align : middle"></td>
                                 </tr>
                         </table>
                         <div>

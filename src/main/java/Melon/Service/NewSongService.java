@@ -1,6 +1,7 @@
 package Melon.Service;
 
 import Melon.Domain.DTO.NewSongDTO;
+import Melon.Domain.DTO.TJNewSongDTO;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import com.google.gson.JsonArray;
@@ -16,9 +17,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,13 +39,14 @@ public class NewSongService {
 		NewSongDTO newSongDTO = null;
 		for (NewSongEntity newSongEntity : newSongEntityList) {
 			String date = newSongEntity.getCreateTime().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
-			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getSno(), newSongEntity.getStitle(), newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album(), date);
+			newSongDTO = new NewSongDTO(newSongEntity.getNs_no(), newSongEntity.getSno(), newSongEntity.getStitle(),
+					newSongEntity.getS_singer(), newSongEntity.getS_img(), newSongEntity.getS_album(), date);
 			addArray.add(newSongDTO);
 		}
 		return addArray;
 	}
 
-	// 최신곡 업데이트
+	// 멜론 최신곡 업데이트
 	public boolean NewSongSave() {
 		try {
 			JsonObject melonDataOBJ = new JsonObject();
@@ -120,6 +124,76 @@ public class NewSongService {
 		}
 	}
 
+	// TJ 신곡 긁기
+	public ArrayList<TJNewSongDTO> TJNewSongList() {
+		try {
+			JsonObject melonDataOBJ = new JsonObject();
+			JsonArray songInfo = new JsonArray();
+
+			Date date = new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			calendar.add(Calendar.MONTH, 0);
+			String year1 = sdf.format(calendar.getTime()).split("-")[0];
+			String mon1 = sdf.format(calendar.getTime()).split("-")[1];
+			calendar.add(Calendar.MONTH, -1);
+			String year2 = sdf.format(calendar.getTime()).split("-")[0];
+			String mon2 = sdf.format(calendar.getTime()).split("-")[1];
+
+			ArrayList<TJNewSongDTO> tjNewSongDTOS = new ArrayList<>();
+
+			for(int a = 0; a < 2; a++) {
+				// URL 연결
+				Document document1;
+				if(a == 0) {
+					document1 = Jsoup.connect("http://m.tjmedia.com/tjsong/song_monthNew.asp?YY=" + year1 + "&MM=" + mon1).get();
+				} else {
+					document1 = Jsoup.connect("http://m.tjmedia.com/tjsong/song_monthNew.asp?YY=" + year2 + "&MM=" + mon2).get();
+				}
+
+				// 큰 틀(테이블) 타기
+				Elements TJ_song = document1.getElementsByClass("board_type1"); // 클래스 명으로 큰 틀 지정
+				Elements TJtag = TJ_song.select("tbody>tr>td"); // 큰 틀에서 태그를 통해 타고 원하는 정보까지 들어감
+
+				String[] TJSong = new String[TJtag.size()];
+				String tjNo = null; String tjName = null; String tjSinger = null;
+				boolean sw = true;
+
+
+				for(int i = 0; i < TJSong.length; i++) {
+					if (i % 3 == 0) {
+						// 노래방 번호
+						tjNo = TJtag.get(i).text();
+					}
+					if (i % 3 == 1) {
+						// 제목
+						tjName = TJtag.get(i).text();
+					}
+					if (i % 3 == 2) {
+						// 가수
+						tjSinger = TJtag.get(i).text();
+						sw = false;
+					}
+					if(!sw) {
+						TJNewSongDTO tjNewSongDTO = new TJNewSongDTO();
+						tjNewSongDTO.setTj_no(tjNo);
+						tjNewSongDTO.setTj_name(tjName);
+						tjNewSongDTO.setTj_singer(tjSinger);
+						tjNewSongDTOS.add(tjNewSongDTO);
+						sw = true;
+					}
+				}
+
+			}
+			return tjNewSongDTOS;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 	// 페이징
 	public Page<NewSongEntity> NewSongPaging(Pageable pageable) {
 		int page = 0;
@@ -131,5 +205,18 @@ public class NewSongService {
 
 		pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "sno"));
 		return newSongRepository.findAll(pageable);
+	}
+
+	// 신곡이 노래방에 나왔는지 검사
+	public ArrayList<NewSongDTO> CheckSong(ArrayList<NewSongDTO> newChart, ArrayList<TJNewSongDTO> newTJ) {
+		for(int i = 0; i < newChart.size(); i++) {
+			for(int j = 0; j < newTJ.size(); j++) {
+				if(newChart.get(i).getS_title().equals(newTJ.get(j).getTj_name())) {
+					System.out.println(newChart.get(i).getS_title() + " = " + newTJ.get(j).getTj_name());
+				}
+			}
+		}
+
+		return null;
 	}
 }

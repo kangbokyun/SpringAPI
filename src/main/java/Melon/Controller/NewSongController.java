@@ -2,6 +2,7 @@ package Melon.Controller;
 
 import Melon.Domain.DTO.MemberDTO;
 import Melon.Domain.DTO.NewSongDTO;
+import Melon.Domain.DTO.TJNewSongDTO;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import Melon.Service.NewSongService;
@@ -31,6 +32,13 @@ public class NewSongController {
 	@GetMapping("/")
 	public String goToMain(Model model) {
 		HttpSession session = request.getSession();
+
+		ArrayList<TJNewSongDTO> checkTJ = newSongService.TJNewSongList();
+		model.addAttribute("checkTJ", checkTJ);
+
+		ArrayList<NewSongDTO> newChartSong = newSongService.getNewSong();
+		newSongService.CheckSong(newChartSong, checkTJ);
+
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
 			model.addAttribute("MemberDTO", memberDTO);
@@ -46,7 +54,6 @@ public class NewSongController {
 	public String goToNewSong(@PageableDefault Pageable pageable, Model model) {
 		HttpSession session = request.getSession();
 		Page<NewSongEntity> newsongDTOS = newSongService.NewSongPaging(pageable);
-
 		model.addAttribute("newSongDTOS", newsongDTOS);
 
 		return "Melon/NewSong/NewSongList";
@@ -62,4 +69,7 @@ public class NewSongController {
 			return "2";
 		}
 	}
+
+	// tj 노래방 신곡 리스트 긁기
+//	@GetMapping("/NewSong/NewSong")
 }
