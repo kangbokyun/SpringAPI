@@ -30,7 +30,7 @@
                                         <td th:unless = "${newSongDTO.s_singer.length()} >= 16" class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_singer}" style = "vertical-align : middle"></td>
                                         <td class = "col-md-2 text-center mt-5"><img th:src = "${newSongDTO.s_img}" style="width: 3rem; height: 3rem;"></td>
                                         <td class = "col-md-2 text-center mt-5" th:text = "${newSongDTO.s_album}" style = "vertical-align : middle"></td>
-                                        <td th:text = "${#temporals.format(newSongDTO.createTime, 'yy-MM-dd hh : mm')}" class = "col-md-3"></td>
+                                        <td th:text = "${#temporals.format(newSongDTO.createTime, 'yy-MM-dd hh : mm')}" class = "col-md-3" style = "vertical-align : middle; text-align : center;"></td>
                                 </tr>
                         </table>
                         <div>
