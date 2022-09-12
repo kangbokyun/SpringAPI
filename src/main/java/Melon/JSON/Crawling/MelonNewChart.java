@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 @SpringBootApplication
 public class MelonNewChart {
-        public static void main(String[] args) {
+        public static void main(String[] args) { 
                 String[] str1 = new String[50];
                 ArrayList<String> arr = new ArrayList<>();
                 for(int i = 0; i < 50; i++) {
