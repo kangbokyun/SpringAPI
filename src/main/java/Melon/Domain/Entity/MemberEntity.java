@@ -16,7 +16,7 @@ public class MemberEntity extends BaseTimeEntity {
     private String mpw;
     @Column
     private String mname;
-    @Column
+    @Column 
     private String memail;
     @Column
     private String mphone;
