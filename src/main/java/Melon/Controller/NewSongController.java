@@ -34,7 +34,9 @@ public class NewSongController {
 		HttpSession session = request.getSession();
 
 		ArrayList<NewSongDTO> newChartSong = newSongService.getNewSong();
-		ArrayList<TJNewSongDTO> TJnewChart = newSongService.CheckTJSong(newChartSong);
+		ArrayList<NewSongDTO> TJnewChart = newSongService.CheckTJSong(newChartSong);
+
+		model.addAttribute("TJnewChart", TJnewChart);
 
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
