@@ -23,7 +23,7 @@ var Graph = setInterval(function test() {
                                        <!--// ⑧dataset의 선 색(rgba값을 String으로 표현)-->
                                        borderColor: 'rgb(255, 99, 132)',
                                        <!--// ⑨dataset의 선 두께(Number)-->
-                                       borderWidth: 5
+                                       borderWidth: 1
                                    }]
                                },
                               options: {
