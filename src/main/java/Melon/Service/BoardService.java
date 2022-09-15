@@ -30,7 +30,7 @@ public class BoardService {
     public List<CategoryDTO> CreateCategory() {
         List<CategoryEntity> categoryEntities = categoryRepository.findAll();
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
-        if(categoryEntities == null) {
+        if(categoryEntities == null || categoryEntities.size() == 0) {
             CategoryEntity categoryEntity1 = CategoryEntity.builder().catename("노래").catecode("0001").build();
             CategoryEntity categoryEntity2 = CategoryEntity.builder().catename("가수").catecode("0002").build();
             CategoryEntity categoryEntity3 = CategoryEntity.builder().catename("자유").catecode("0003").build();
@@ -45,8 +45,15 @@ public class BoardService {
             }
             return categoryDTOS;
         }
+        return null;
+    }
+
+    // 작은 카테고리 가져오기
+    public List<MiddleCategoryDTO> getMiddleC() {
         List<MiddleCategoryEntity> middleCategoryEntities = middleCategoryRepository.findAll();
-        if(middleCategoryEntities == null) {
+        System.out.println("middleCategoryEntities : " + middleCategoryEntities.size());
+        List<MiddleCategoryDTO> middleCategoryDTOS = new ArrayList<>();
+        if(middleCategoryEntities == null || middleCategoryEntities.size() == 0) {
             MiddleCategoryEntity middleCategory1 = MiddleCategoryEntity.builder().mcname("발라드").mccode("0001").build();
             MiddleCategoryEntity middleCategory2 = MiddleCategoryEntity.builder().mcname("댄스").mccode("0002").build();
             MiddleCategoryEntity middleCategory3 = MiddleCategoryEntity.builder().mcname("아이돌").mccode("0003").build();
@@ -58,22 +65,17 @@ public class BoardService {
             middleCategoryRepository.save(middleCategory3);
             middleCategoryRepository.save(middleCategory4);
             middleCategoryRepository.save(middleCategory5);
+        } else {
+            for (MiddleCategoryEntity middleCategory : middleCategoryEntities) {
+                MiddleCategoryDTO middleCategoryDTO = new MiddleCategoryDTO();
+                middleCategoryDTO.setMcno(middleCategory.getMcno());
+                middleCategoryDTO.setMcname(middleCategory.getMcname());
+                middleCategoryDTO.setMccode(middleCategory.getMccode());
+                middleCategoryDTOS.add(middleCategoryDTO);
+            }
+            return middleCategoryDTOS;
         }
         return null;
-    }
-
-    // 작은 카테고리 가져오기
-    public List<MiddleCategoryDTO> getMiddleC() {
-        List<MiddleCategoryEntity> middleCategoryEntities = middleCategoryRepository.findAll();
-        List<MiddleCategoryDTO> middleCategoryDTOS = new ArrayList<>();
-        for(MiddleCategoryEntity middleCategory : middleCategoryEntities) {
-            MiddleCategoryDTO middleCategoryDTO = new MiddleCategoryDTO();
-            middleCategoryDTO.setMcno(middleCategory.getMcno());
-            middleCategoryDTO.setMcname(middleCategory.getMcname());
-            middleCategoryDTO.setMccode(middleCategory.getMccode());
-            middleCategoryDTOS.add(middleCategoryDTO);
-        }
-        return middleCategoryDTOS;
     }
 
     // 작은 카테고리 클릭 시 반환되는 번호로 카테고리 이름 가져오기
