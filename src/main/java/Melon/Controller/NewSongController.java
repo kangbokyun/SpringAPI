@@ -38,6 +38,10 @@ public class NewSongController {
 
 		model.addAttribute("TJnewChart", TJnewChart);
 
+//		String checkLogin = (String)session.getAttribute("MemberDTO");
+//		System.out.println("checkLogin : " + checkLogin);
+		System.out.println("asdasdasd : " + session.getAttribute("MemberDTO"));
+
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
 			model.addAttribute("MemberDTO", memberDTO);

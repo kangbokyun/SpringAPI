@@ -41,4 +41,4 @@ var Graph = setInterval(function test() {
                 }
         });
     clearInterval(Graph)
-}, 1000);
+}, 100);

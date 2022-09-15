@@ -53,10 +53,9 @@ public class MemberController {
 	public String Login(@RequestParam("mid")String mid, @RequestParam("mpw")String mpw) {
 		MemberDTO memberDTO = memberService.MemberLogin(mid, mpw);
 
-		HttpSession session = request.getSession();
-		session.setAttribute("MemberDTO", memberDTO);
-
-		if(memberDTO.getMid().equals(mid)) {
+		if(memberDTO != null && memberDTO.getMid().equals(mid)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("MemberDTO", memberDTO);
 			return "1";
 		} else {
 			return "0";

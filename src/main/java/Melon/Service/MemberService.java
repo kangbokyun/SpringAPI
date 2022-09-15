@@ -43,9 +43,12 @@ public class MemberService {
                 memberDTO.setMaddress(memberEntity.getMaddress());
                 memberDTO.setMno(memberEntity.getMno());
                 memberDTO.setMreserv(memberEntity.getMreserv());
-            }
+        	return memberDTO;
+            } else {
+		    return null;
+	    }
         }
-        return memberDTO;
+    return null;
     }
 
     // 로그아웃
