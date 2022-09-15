@@ -1,13 +1,3 @@
-var arrMonths = new Array();
-var jan; var feb; var mar; var apr; var may; var jun;
-var jul; var aug; var sep; var oct; var nov; var dec;
-
-//setInterval(test1(), 1000);
-//function test1() {
-//        clearInterval(Graph)
-//}
-
-//setInterval(test(), 1000);
 var Graph = setInterval(function test() {
         $.ajax({
                 url : "/CountSong",
@@ -29,9 +19,9 @@ var Graph = setInterval(function test() {
                                        <!--// ⑥dataset값(Array)-->
                                        data: result,
                                        <!--// ⑦dataset의 배경색(rgba값을 String으로 표현)-->
-                                       backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                       backgroundColor: 'rgb(255, 99, 132)',
                                        <!--// ⑧dataset의 선 색(rgba값을 String으로 표현)-->
-                                       borderColor: 'rgba(255, 99, 132, 1)',
+                                       borderColor: 'rgb(255, 99, 132)',
                                        <!--// ⑨dataset의 선 두께(Number)-->
                                        borderWidth: 1
                                    }]
