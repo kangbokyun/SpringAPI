@@ -20,10 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class NewSongService {
@@ -227,5 +224,33 @@ public class NewSongService {
 
 		pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "sno"));
 		return newSongRepository.findAll(pageable);
+	}
+
+	// 메인에 띄울 그래프 값 추출
+	public ArrayList<Integer> getSongYear() {
+		ArrayList<Integer> count_month = new ArrayList<>();
+		int jan = 0; int feb = 0; int mar = 0; int apr = 0; int may = 0; int jun = 0;
+		int jul = 0; int aug = 0; int sep = 0; int oct = 0; int nov = 0; int dec = 0;
+		List<NewSongEntity> newSongEntity = newSongRepository.findAll();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM");
+		for(int i = 0; i < newSongEntity.size(); i++) {
+			LocalDateTime ldt = newSongEntity.get(i).getCreateTime();
+			if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("01")){ jan++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("02")) { feb++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("03")) { mar++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("04")) { apr++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("05")) { may++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("06")) { jun++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("07")) { jul++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("08")) { aug++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("09")) {	sep++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("10")) { oct++;
+			} else if(ldt.format(DateTimeFormatter.ofPattern("MM")).equals("11")) { nov++;
+			} else {dec++;}
+		}
+		count_month.add(jan); count_month.add(feb); count_month.add(mar); count_month.add(apr);
+		count_month.add(may); count_month.add(jun); count_month.add(jul); count_month.add(aug);
+		count_month.add(sep); count_month.add(oct); count_month.add(nov); count_month.add(dec);
+		return count_month;
 	}
 }

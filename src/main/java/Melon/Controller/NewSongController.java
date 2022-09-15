@@ -35,7 +35,9 @@ public class NewSongController {
 
 		ArrayList<NewSongDTO> newChartSong = newSongService.getNewSong();
 		ArrayList<NewSongDTO> TJnewChart = newSongService.CheckTJSong(newChartSong);
+		ArrayList<Integer> count_month = newSongService.getSongYear();
 
+		model.addAttribute("CountMonths", count_month);
 		model.addAttribute("TJnewChart", TJnewChart);
 
 		if(session.getAttribute("MemberDTO") != null) {
@@ -47,6 +49,9 @@ public class NewSongController {
 			return "Melon/Main";
 		}
 	}
+
+	@GetMapping("/MonthsData")
+	public
 
 	// 신곡 리스트
 	@GetMapping("/NewSong/NewSongList")
