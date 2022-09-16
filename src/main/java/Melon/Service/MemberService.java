@@ -73,4 +73,10 @@ public class MemberService {
         }
         return true;
     }
+
+    // 예약 후 가수 가져오기
+    public String getReservSinger(int bno) {
+        MemberEntity memberEntity = memberRepository.findById(bno).get();
+        return memberEntity.getMreserv();
+    }
 }
