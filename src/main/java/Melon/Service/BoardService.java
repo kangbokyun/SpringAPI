@@ -155,6 +155,12 @@ public class BoardService {
                     .rdistinctno(1)
                     .build();
             replyRepository.save(replyEntity);
+
+            // 댓글 썼을 때 로드하면서 조회수가 증가하지 않게
+            Optional<BoardEntity> boardEntity = boardRepository.findById(bno);
+            String bview = boardEntity.get().getBview();
+            boardEntity.get().setBview(Integer.toString(Integer.parseInt(bview) - 1));
+            boardRepository.save(boardEntity.get());
             return true;
         } else {
             return false;

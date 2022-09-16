@@ -31,6 +31,7 @@ public class MemberController {
 	public String goToMyInfo(Model model) {
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
+		System.out.println("memberDTO : " + memberDTO);
 		model.addAttribute("MemberDTO", memberDTO);
 		return "Melon/Member/MyInfo";
 	}
