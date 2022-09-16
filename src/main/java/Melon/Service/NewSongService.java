@@ -2,6 +2,8 @@ package Melon.Service;
 
 import Melon.Domain.DTO.NewSongDTO;
 import Melon.Domain.DTO.TJNewSongDTO;
+import Melon.Domain.Entity.MemberEntity;
+import Melon.Domain.Entity.MemberRepository;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import com.google.gson.JsonArray;
@@ -26,6 +28,8 @@ import java.util.*;
 public class NewSongService {
 	@Autowired
 	NewSongRepository newSongRepository;
+	@Autowired
+	MemberRepository memberRepository;
 
 	@Autowired
 	HttpSession session;
@@ -192,7 +196,7 @@ public class NewSongService {
 			ArrayList<NewSongDTO> newSongDTOS = new ArrayList<>();
 			for(int i = 0 ; i < newChart.size(); i++) {
 				Date dd = sdf1.parse(newChart.get(i).getS_createDate());
-//				if(dd.compareTo(calendar.getTime()) >= 0) {
+				if(dd.compareTo(calendar.getTime()) >= 0) {
 					for(int j = 0; j < tjNewSongDTOS.size(); j++) {
 						if (newChart.get(i).getS_title().replace(" ", "").equals(tjNewSongDTOS.get(j).getTj_name())) {
 							NewSongDTO newSongDTO = new NewSongDTO();
@@ -203,7 +207,7 @@ public class NewSongService {
 							newSongDTOS.add(newSongDTO);
 						}
 					}
-//				}
+				}
 			}
 			return newSongDTOS;
 		} catch (Exception e) {
@@ -252,5 +256,36 @@ public class NewSongService {
 		count_month.add(may); count_month.add(jun); count_month.add(jul); count_month.add(aug);
 		count_month.add(sep); count_month.add(oct); count_month.add(nov); count_month.add(dec);
 		return count_month;
+	}
+
+	// 알림 예약한 가수의 신곡이 나왔는지 확인
+	public ArrayList<String> FindReservationSinger(int mno, ArrayList<NewSongDTO> newChartSong) {
+		Optional<MemberEntity> memberEntities = memberRepository.findById(mno);
+		ArrayList<String> reserveSinger = new ArrayList<>();
+		String[] getReserv = memberEntities.get().getMreserv().split(",");
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		Date date = new Date();
+
+		calendar.setTime(date);
+		calendar.add(Calendar.MONTH, -1);
+
+		try {
+			for (int i = 0; i < getReserv.length; i++) {
+				for (int j = 0; j < newChartSong.size(); j++) {
+					Date newSong = simpleDateFormat.parse(newChartSong.get(j).getS_createDate());
+					if(newSong.compareTo(calendar.getTime()) >= 0) {
+						if (getReserv[i].contains(newChartSong.get(j).getS_singer())) {
+							reserveSinger.add(getReserv[i]);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println("reserveSinger : " + reserveSinger);
+		return reserveSinger;
 	}
 }

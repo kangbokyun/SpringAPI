@@ -3,6 +3,7 @@ package Melon.Controller;
 import Melon.Domain.DTO.MemberDTO;
 import Melon.Domain.DTO.NewSongDTO; 
 import Melon.Domain.DTO.TJNewSongDTO;
+import Melon.Domain.Entity.MemberEntity;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import Melon.Service.NewSongService;
@@ -35,15 +36,18 @@ public class NewSongController {
 
 		ArrayList<NewSongDTO> newChartSong = newSongService.getNewSong();
 		ArrayList<NewSongDTO> TJnewChart = newSongService.CheckTJSong(newChartSong);
-
 		model.addAttribute("TJnewChart", TJnewChart);
 
-//		String checkLogin = (String)session.getAttribute("MemberDTO");
-//		System.out.println("checkLogin : " + checkLogin);
-		System.out.println("asdasdasd : " + session.getAttribute("MemberDTO"));
 
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
+			ArrayList<String> getReserve = newSongService.FindReservationSinger(memberDTO.getMno(), newChartSong);
+			System.out.println(getReserve);
+			if(getReserve != null) {
+				model.addAttribute("ReserveSinger", getReserve);
+			} else {
+				model.addAttribute("ReserveSinger", "예약 정보가 없습니다.");
+			}
 			model.addAttribute("MemberDTO", memberDTO);
 			return "Melon/Main";
 		} else {
