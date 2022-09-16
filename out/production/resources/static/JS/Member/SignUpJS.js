@@ -80,7 +80,9 @@ function Reservation(mno) {
         success: function(result) {
             if(result == 1) {
                 alert("예약되었습니다.");
-                $("#reservbtn").val("");
+                location.href = "/Member/MyInfo";
+//                $("#reservbtn").val("");
+//                $("#ReservDIV").load(location.href+ " #ReservDIV");
             } else {
                 alert("시스템에러 :: 관리자에게 문의");
             }
