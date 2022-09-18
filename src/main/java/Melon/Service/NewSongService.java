@@ -7,7 +7,7 @@ import Melon.Domain.Entity.MemberRepository;
 import Melon.Domain.Entity.NewSongEntity;
 import Melon.Domain.Entity.NewSongRepository;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonObject; 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
