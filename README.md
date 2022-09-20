@@ -10,7 +10,7 @@
 
 ## 3. 개발환경
  - 운영체제 : Windows10
- - Front-end : HTML, CSS, Bootstrap
+ - Front-end : HTML, CSS, JS, Bootstrap
  - Back-end : JDK 11, Spring Framework
  - Database : MySQL
  - Server : Tomcat
