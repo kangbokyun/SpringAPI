@@ -42,3 +42,14 @@ var Graph = setInterval(function test() {
         });
     clearInterval(Graph)
 }, 100);
+
+function OverFooter(no) {
+    if(no == 1) {
+        $("#divOver").html("<div style = 'border : solid 1px black; text-align : center;' id = 'divOver'><h4>개인정보 처리방침</h4><p>회원가입 시 등록한 개인정보는 어떠한 곳에도 이용하지 않습니다.<p>될 수 있으면 매일 저녁 22시 언저리에 회원 DB내용 삭제합니다.</div>");
+    } else {
+        $("#divOver").html("<div style = 'border : solid 1px black; text-align : center;' id = 'divOver'><h4>운영정책</h4><p>로컬 서버를 이용하거나 AWS를 이용해 배포합니다.<p>크롤링 및 스크래핑된 정보를 통한 어떠한 수익도 발생하지 않습니다.<p>문제가 되는 부분이 있다면 아래 메일로 연락 바랍니다.<p>bk940204@naver.com</div>");
+    }
+}
+function LeaveFooter() {
+    $("#divOver").html("<div style = 'display : none;' id = 'divOver'></div>");
+}

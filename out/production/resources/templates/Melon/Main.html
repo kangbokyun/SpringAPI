@@ -32,6 +32,23 @@
                                 </div>
                         </div>
                 </div>
+                <div class = "row" style = "margin-top : 30px;">
+                        <div class = "col-md-5">
+                                <h4>예약한 가수의 신곡</h4>
+                                <table>
+                                        <tr th:each = "Reserv : ${ReserveSinger}"><td th:text = "${Reserv}"></td></tr>
+                                </table>
+                        </div>
+                        <div class = "col-md-5 offset-md-2">
+                                <h5 style = "color : gray; text-align : center;">Copyright 2022. DevBK All rights reserved.</h5>
+                                <div class = "row" style = "text-align : center; margin-top : 30px;">
+                                        <p class = "col-md-12" onmouseover ="OverFooter(1);" onmouseleave="LeaveFooter();">개인정보 처리방침</p>
+                                        <p class = "col-md-12" onmouseover ="OverFooter(2);">운영정책</p>
+                                        <h6 class = "col-md-12" style = "color : green;">Thanks for Comming!</h6>
+                                </div>
+                                <div id = "divOver"></div>
+                        </div>
+                </div>
         </div>
 </body>
 </html>

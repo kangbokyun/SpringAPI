@@ -21,7 +21,7 @@
                     <input type = "hidden" id = "hiddenValue" value = "1">
                     <div class = "container" style = "width: 80%;">
                         <div class = "row">
-                            <div class = "col-md-1" th:each = "MCate : ${MCategory}">
+                            <div class = "col-md-1" th:each = "MCate : ${MCategory}" style = "text-align : center;">
                                 <label th:text = "${MCate.getMcname()}" id = "middleC" th:onclick = "MiddleCateClick([[${MCateStat.index}]]);"></label>
                                 <input type = "hidden" th:id = "middleIndex+${MCateStat.index}" th:value = "${MCateStat.index}">
                                 <input type = "hidden" value = "0" id = "inputValue">

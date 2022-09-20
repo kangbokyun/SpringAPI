@@ -33,6 +33,8 @@ public class NewSongController {
 	@GetMapping("/")
 	public String goToMain(Model model) {
 		HttpSession session = request.getSession();
+		// ip가져오기
+		// System.out.println("request.getRemoteAddr() : " + request.getRemoteAddr());
 
 		ArrayList<NewSongDTO> newChartSong = newSongService.getNewSong();
 		ArrayList<NewSongDTO> TJnewChart = newSongService.CheckTJSong(newChartSong);
@@ -42,7 +44,6 @@ public class NewSongController {
 		if(session.getAttribute("MemberDTO") != null) {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("MemberDTO");
 			ArrayList<String> getReserve = newSongService.FindReservationSinger(memberDTO.getMno(), newChartSong);
-			System.out.println(getReserve);
 			if(getReserve != null) {
 				model.addAttribute("ReserveSinger", getReserve);
 			} else {
