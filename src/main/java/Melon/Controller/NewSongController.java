@@ -47,7 +47,7 @@ public class NewSongController {
 			if(getReserve != null) {
 				model.addAttribute("ReserveSinger", getReserve);
 			} else {
-				model.addAttribute("ReserveSinger", "예약 정보가 없습니다.");
+				model.addAttribute("ReserveSinger", null);
 			}
 			model.addAttribute("MemberDTO", memberDTO);
 			return "Melon/Main";
