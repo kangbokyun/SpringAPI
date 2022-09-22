@@ -1,6 +1,6 @@
 Index: .idea/gradle.xml
 IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP 
 <+>UTF-8
 ===================================================================
 diff --git a/.idea/gradle.xml b/.idea/gradle.xml
