@@ -105,3 +105,12 @@ function Logout(mno) {
         }
     });
 }
+
+// 회원가입 유효성검사
+function checkSignUp() {
+    var id = $("#mid").val();
+    if(id.length < 2 || id.length > 15) {
+        alert("아이디는 2글자 이상, 15글자 이하여야 합니다.");
+        return;
+    }
+}
