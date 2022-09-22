@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class MemberService {
-    @Autowired
+    @Autowired 
     MemberRepository memberRepository;
 
     // 회원가입
