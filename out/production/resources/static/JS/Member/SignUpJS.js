@@ -56,18 +56,45 @@ function SignUpCheck() {
     var memail = $("#memail").val();
     var mphone = $("#mphone").val();
     var maddress = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
-    $.ajax({
-        url: "/Member/SignUpController",
-        data: {"mid":mid, "mpw":mpw1, "mname":mname, "memail":memail, "mphone":mphone, "maddress":maddress},
-        success: function(result) {
-            if(result == 1) {
-                alert("회원가입이 되었습니다.");
-                location.href = "/";
-            } else {
-                alert("회원가입 실패 :: 관리자에게 문의");
-            }
+    var checkid = true; var checkpw = true; checkname = true;
+
+    if(mid.length < 2 || mid.length > 15) {
+            alert("2글자 이상, 15글자 이하를 입력하세요.");
+            checkid = false;
+            return;
+        } else {
+            checkid = true;
         }
-    });
+        if(mpw1 != mpw2) {
+            alert("비밀번호를 확인해주세요.");
+            checkpw = false;
+            return;
+        } else {
+            checkpw = true;
+        }
+        if(mname.length < 2) {
+            alert("이름은 두글자 이상 입력해야 합니다.");
+            checkname = false;
+            return;
+        } else {
+            checkname = true;
+        }
+
+        if(checkid && checkpw && checkname) {
+            $.ajax({
+                url: "/Member/SignUpController",
+                data: {"mid":mid, "mpw":mpw1, "mname":mname, "memail":memail, "mphone":mphone, "maddress":maddress},
+                success: function(result) {
+                    if(result == 1) {
+                        alert("회원가입이 되었습니다.");
+                        location.href = "/";
+                    } else {
+                        alert("회원가입 실패 :: 관리자에게 문의");
+                    }
+                }
+            });
+        }
+
 }
 
 
@@ -104,4 +131,14 @@ function Logout(mno) {
             }
         }
     });
+}
+
+// 회원가입 유효성검사
+function checkSignUp() {
+    var id = $("#mid").val();
+    var pw1 = $("#mpw1").val();
+    var pw2 = $("#mpw2").val();
+    var name = $("#mname").val();
+
+
 }
