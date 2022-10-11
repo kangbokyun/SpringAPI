@@ -47,5 +47,4 @@
    - 컨트롤러(Controller) : -- Controller
  - 주석 : Controller(Mapping) / Service(Method) 설명 기재
 
-
-[ERD.drawio.pdf](https://github.com/kangbokyun/SpringAPI/files/9751011/ERD.drawio.pdf)
+![ERD drawio](https://user-images.githubusercontent.com/91529033/194995265-63c31d65-b67e-40ea-a817-6bca20e570f5.png)
