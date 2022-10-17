@@ -9,7 +9,7 @@
 ## 2. 타겟 
  - 노래 듣기를 좋아하고 노래방을 좋아하는 남녀노소 불특정다수
 
-## 3. 개발환경 
+## 3. 개발환경
  - 운영체제 : Windows10
  - Front-end : HTML, CSS, JS, Bootstrap
  - Back-end : JDK 11, Spring Framework
